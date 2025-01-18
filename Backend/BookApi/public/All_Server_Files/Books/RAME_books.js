@@ -10,7 +10,8 @@ exports.readBooks = async (req, res) => {
     // Fetch books for the current page from the database
     const bookData = await Book.find()
       .skip((page - 1) * booksPerPage)
-      .limit(booksPerPage);
+      .limit(booksPerPage)
+      .sort({ date: -1 });
 
     // Get total number of books for pagination
     const totalBooks = await Book.countDocuments();
@@ -135,6 +136,7 @@ exports.readBooks = async (req, res) => {
         page - 1
       }" class="pagination-link">Previous</a>`;
     }
+
     if (page < totalPages) {
       paginationHtml += `<a href="/books/${
         page + 1
@@ -229,6 +231,11 @@ exports.readBooks = async (req, res) => {
             text-align: center;
             margin-top: 20px;
           }
+            .page-no{
+            // color:red;
+            font-size:1.1rem;
+            font-weight:bloder;
+            }
 
           footer {
             background-color: #333;
@@ -341,6 +348,7 @@ exports.readBooks = async (req, res) => {
             <div class="pagination">
               ${paginationHtml}
             </div>
+            <div class = "page-no pagination"><p>Page No: ${page}</p></div>
           </section>
         </main>
 

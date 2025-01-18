@@ -4,7 +4,7 @@ const Book = model.book;
 exports.read5book = async (req, res) => {
   try {
     // Fetch 5 books from the database
-    const bookData = await Book.find().limit(5);
+    const bookData = await Book.find().limit(5).sort({ date:-1 });
     var msg = "",
       viewMore = "",
       viewAllBooksPath = "";

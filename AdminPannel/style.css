@@ -59,10 +59,11 @@ button:hover {
   width: 80vw;
   height: 500px;
   overflow: auto;
-  /* border-bottom: 2px solid black; */
 }
 .book-item {
   margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
 }
 
 img {
@@ -78,5 +79,5 @@ img {
 .update-btn {
   width: 30%;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 10px;
 }

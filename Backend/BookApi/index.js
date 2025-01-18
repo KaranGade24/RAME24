@@ -1,19 +1,26 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bookController = require("./controller/book");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
+// Controllers
+const bookController = require("./controller/book");
+const confranceController = require("./controller/confrance");
+const studenMembershipController = require("./controller/studentMembership");
+
+// Models
 const model = require("./model/book");
 const Book = model.book;
 
-//
-//
+// Routes
 const book_5_read = require("./public/All_Server_Files/Books/RAME_5_books");
 const bookread = require("./public/All_Server_Files/Books/RAME_books");
 const bookClick = require("./public/All_Server_Files/Books/Book_click");
-const admin = require("./public/All_Server_Files/Books/admin");
+const conferencePage = require("./public/All_Server_Files/conference/index");
+const singleConferencePage = require("./public/All_Server_Files/conference/singleConferenc");
+const studenMembership = require("./public/All_Server_Files/studentMembership/studentMembership");
 
 // Initialize the app
 const app = express();
@@ -27,6 +34,7 @@ const uploadDir = path.join(__dirname, "/public/uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
+
 // Middleware
 app.use(express.static("public"));
 app.use(cors());
@@ -46,61 +54,64 @@ mongoDbConnection();
 
 // Multer configuration
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, uploadDir);
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 const upload = multer({ storage: storage });
 
-// Routes
-app.post("/add", upload.array("files", 2), async (req, res) => {
-  try {
-    console.log("Form data:", req.body);
-    console.log("Uploaded files:", req.files);
-
-    const uploadedFiles = req.files.map((file) => ({
-      originalName: file.originalname,
-      filePath: file.path,
-      fileSize: file.size,
-    }));
-
-    const bookData = {
-      ...req.body,
-      files: uploadedFiles,
-    };
-
-    const book = new Book(bookData);
-    await book.save();
-
-    res.json({
-      message: "Book and files uploaded successfully!",
-      book: bookData,
-      files: uploadedFiles,
-    });
-  } catch (error) {
-    console.error("Error saving book:", error);
-    res.status(500).json({ message: "Failed to upload book data." });
-  }
-});
-
-// ROUTES FOR FRONTEND
-//ROUTES FOR GETTING DATA
+// Routes for Frontend
+// Routes for getting data
 app.get("/books/:pages", bookread.readBooks);
 app.get("/books", book_5_read.read5book);
 app.get("/book/:id", bookClick.renderBookPage);
-// app.get("/admin", admin.admin);
+app.get(
+  "/conferences-data/:id",
+  confranceController.getAllConferenceSubmissions
+);
+app.get("/conference/:id", singleConferencePage.singleConferencePage);
+app.get("/membership", studenMembership.StudentMembershipHtml);
+app.post("/add", upload.array("files", 2), bookController.addBookWithFiles);
+app.post("/student-membership", studenMembershipController.studentMembership);
 
-// ROUTES FOR POSTMAN
+app.post(
+  "/add-conference",
+  upload.fields([
+    { name: "paperFile", maxCount: 1 },
+    { name: "programScheduleFile", maxCount: 1 },
+    { name: "presentationScheduleFile", maxCount: 1 },
+    { name: "presentationGuidelinesFile", maxCount: 1 },
+    { name: "pptFormatFile", maxCount: 1 },
+    { name: "conferenceBanner", maxCount: 1 },
+  ]),
+  confranceController.addConferenceSubmission
+);
+app.get("/conferences", conferencePage.upcomingConferencesPage);
+app.get("/all-conferences", conferencePage.conferencePage);
+app.patch("/update", upload.array("files", 2), bookController.updateBookData);
 
+// Routes for Postman
 app.get("/bookss", bookController.read);
 app.post("/book", bookController.create);
-app.patch("/:id", bookController.update);
 app.delete("/:id", bookController.delete);
 app.get("/delete-all", bookController.deleteAll);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
