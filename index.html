@@ -62,6 +62,8 @@
         height: 70vh;
         background-color: #252121;
         overflow: auto;
+        word-wrap: break-word;
+        word-break: break-all;
       }
       .card {
         margin: 5px;
@@ -70,6 +72,35 @@
         border: 2px solid white;
         background-color: rgb(231, 226, 226);
         font-weight: bolder;
+      }
+      .card p {
+        font-size: 20px;
+      }
+      .card h4 {
+        padding: 2px;
+        color: blueviolet;
+        font-size: 20px;
+      }
+      .card button {
+        align-self: center;
+        padding: 10px;
+        width: 30vw;
+        height: 40px;
+        margin: 15px auto;
+      }
+      .BtnDiv {
+        padding-bottom: 20px;
+        margin: auto;
+        text-align: center;
+        width: 30vw;
+        height: fit-content;
+      }
+      .BtnDiv button {
+        padding: 10px;
+        margin: 15px auto;
+        text-align: center;
+        width: 30vw;
+        height: 40px;
       }
     </style>
   </head>
@@ -83,7 +114,7 @@
         id="title"
         name="title"
         placeholder="Enter your paper title"
-        required
+        class=""
       />
       <label for="shortcutTitle">Paper shortcut Title:</label>
       <input
@@ -91,17 +122,17 @@
         id="shortcutTitle"
         name="shortcutTitle"
         placeholder="Enter your shortcut paper title"
-        required
+        class=""
       />
 
-      <label for="organizers">publication:</label>
+      <label for="organizers">organizers: </label>
       <input
         type="text"
         id="organizers"
         name="organizers"
         rows="3"
         placeholder="organizers name separated by commas"
-        required
+        class=""
       />
 
       <label for="conferenceStartDate">conference start date:</label>
@@ -110,7 +141,7 @@
         id="conferenceStartDate"
         name="conferenceStartDate"
         placeholder="Enter conference start date"
-        required
+        class=""
       />
 
       <label for="conferenceEndDate">conference end date:</label>
@@ -119,7 +150,7 @@
         id="conferenceEndDate"
         name="conferenceEndDate"
         placeholder="Enter conference end date"
-        required
+        class=""
       />
 
       <label for="authors">Authors:</label>
@@ -128,7 +159,7 @@
         name="authors"
         rows="3"
         placeholder="List authors separated by commas"
-        required
+        class=""
       ></textarea>
 
       <label for="email">Contact Email:</label>
@@ -137,7 +168,7 @@
         id="email"
         name="email"
         placeholder="Enter contact email"
-        required
+        class=""
       />
 
       <label for="phone">Contact Phone:</label>
@@ -146,7 +177,7 @@
         id="phone"
         name="phone"
         placeholder="Enter contact phone number"
-        required
+        class=""
       />
 
       <label for="abstract">Abstract:</label>
@@ -155,7 +186,7 @@
         name="abstract"
         rows="5"
         placeholder="Enter the abstract of your paper"
-        required
+        class=""
       ></textarea>
 
       <label for="keywords">Keywords:</label>
@@ -164,7 +195,7 @@
         id="keywords"
         name="keywords"
         placeholder="Enter keywords separated by commas"
-        required
+        class=""
       />
 
       <label for="indexed">indexed:</label>
@@ -173,7 +204,7 @@
         id="indexed"
         name="indexed"
         placeholder="Enter indexed separated by commas"
-        required
+        class=""
       />
 
       <label for="track">Conference Track:</label>
@@ -182,7 +213,7 @@
         id="track"
         name="track"
         placeholder="E.g., Thermal Engineering, Material Science"
-        required
+        class=""
       />
 
       <label for="conferenceBanner">Upload conference Banner image</label>
@@ -191,7 +222,7 @@
         id="conferenceBanner"
         name="conferenceBanner"
         accept="image/*"
-        required
+        class=""
       />
       <label for="file">Upload Paper (PDF):</label>
       <input
@@ -199,7 +230,7 @@
         id="file"
         name="paperFile"
         accept="application/pdf"
-        required
+        class=""
       />
 
       <label for="schedule">Program Schedule:</label>
@@ -208,7 +239,7 @@
         id="schedule"
         name="programScheduleFile"
         accept="application/pdf"
-        required
+        class=""
       />
 
       <label for="presentation">Presentation Schedule:</label>
@@ -217,7 +248,7 @@
         id="presentation"
         name="presentationScheduleFile"
         accept="application/pdf"
-        required
+        class=""
       />
 
       <label for="guidelines">Presentation Guidelines:</label>
@@ -226,7 +257,7 @@
         id="guidelines"
         name="presentationGuidelinesFile"
         accept="application/pdf"
-        required
+        class=""
       />
 
       <label for="pptFormat">PPT Format (First Slide):</label>
@@ -235,7 +266,7 @@
         id="pptFormat"
         name="pptFormatFile"
         accept="application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        required
+        class=""
       />
 
       <label for="venue">Venue Details:</label>
@@ -244,7 +275,7 @@
         name="venueDetails"
         rows="3"
         placeholder="Provide details about the venue or online platform details"
-        required
+        class=""
       ></textarea>
 
       <label for="registration">Registration Details:</label>
@@ -253,7 +284,7 @@
         name="registrationDetails"
         rows="3"
         placeholder="Provide registration instructions or details"
-        required
+        class=""
       ></textarea>
 
       <label for="publication">Publication Information:</label>
@@ -262,7 +293,7 @@
         name="publicationInfo"
         rows="3"
         placeholder="Describe where the papers will be published, e.g., IOP Conference Series"
-        required
+        class=""
       ></textarea>
 
       <button id="btn" type="submit">Submit</button>
@@ -271,6 +302,9 @@
     <div class="added-conferences"></div>
 
     <script>
+      const form = document.getElementById("conferenceForm");
+
+      const api = "https://curly-train-qw5v7qr6q79c99w-8080.app.github.dev";
       // Get current date and time in the correct format (yyyy-mm-ddThh:mm)
       const currentDate = new Date();
       const currentDateString = currentDate.toISOString().slice(0, 16); // Format as 'yyyy-mm-ddThh:mm'
@@ -305,16 +339,17 @@
             "conferenceStartDate"
           ).value;
           const endDate = document.getElementById("conferenceEndDate").value;
-
           // Check if end date is after start date
           if (new Date(endDate) <= new Date(startDate)) {
             alert("End date must be greater than the start date!");
           }
         });
 
-      document.getElementById("conferenceForm").onsubmit = async function (
-        event
-      ) {
+      const submitButton = document.getElementById("btn");
+
+      submitButton.addEventListener("click", (event) => submitBtn(event));
+
+      async function submitBtn(event) {
         event.preventDefault(); // Prevent traditional form submission
         const deleteBtn = document.getElementsByTagName("button");
 
@@ -324,19 +359,16 @@
         deleteBtn[0].innerText = "Submitting...";
         // deleteBtn[0].style.backgroundColor = "red";
 
-        const formData = new FormData(this);
+        const formData = new FormData(form);
         console.log(formData);
 
         // alert("submiitin");
 
         try {
-          const response = await fetch(
-            "https://supreme-fortnight-4jvwrg4v9wvrcqq5j-8080.app.github.dev/add-conference",
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
+          const response = await fetch(`${api}/add-conference`, {
+            method: "POST",
+            body: formData,
+          });
 
           const result = await response.json(); // Parse the response as JSON
           console.log(result);
@@ -354,32 +386,307 @@
           deleteBtn[0].innerText = "Submit";
           deleteBtn[0].style.backgroundColor = "blue";
         }
-      };
+      }
 
       //
       //
       //After adding the conferences
-      const addConferenceDiv = document.querySelector(".added-conferences");
 
-      async function getdata(skipNo) {
+      const addConferenceDiv = document.querySelector(".added-conferences");
+      var totalPages,
+        currentPage = 1,
+        response;
+
+      async function getdata(skipNo = 0) {
         const conferenceData = await fetch(
-          `https://supreme-fortnight-4jvwrg4v9wvrcqq5j-8080.app.github.dev/conferences-data/${skipNo}`,
+          `${api}/conferences-data/${skipNo}`,
           {
             method: "GET",
           }
         );
         // conferenceCount
 
-        const response = await conferenceData.json();
-        console.log(response.conferenceSubmissions, response.conferenceCount);
+        response = await conferenceData.json();
+        console.log(response.conferenceSubmissions);
+        const conferences = response.conferenceSubmissions;
+        totalPages = Math.ceil(response.conferenceCount / 10);
 
-        // const tenConference = response.conferenceSubmissions;
-        // tenConference.map((conference) => {
-        // });
-        
+        console.log(totalPages);
+
+        conferences.forEach((conference) => {
+          // Create the main card div
+          const card = document.createElement("div");
+          card.className = "card";
+
+          // Function to create and append a labeled paragraph
+          const createLabeledParagraph = (label, value) => {
+            const paragraph = document.createElement("p");
+            const heading = document.createElement("h4");
+            heading.textContent = `${label}:`;
+            paragraph.appendChild(heading);
+            const textNode = document.createTextNode(` ${value}`);
+            paragraph.appendChild(textNode);
+            card.appendChild(paragraph);
+          };
+
+          // Add all fields to the card
+          createLabeledParagraph("cover", conference.conferenceBanner);
+          createLabeledParagraph("title", conference.title);
+          createLabeledParagraph("shortTitle", conference.shortTitle);
+          createLabeledParagraph("authors", conference.authors);
+          createLabeledParagraph("organizers", conference.organizers);
+          createLabeledParagraph("email", conference.email);
+          createLabeledParagraph("phone", conference.phone);
+          createLabeledParagraph(
+            "conferenceStartDate",
+            conference.conferenceStartDate
+          );
+          createLabeledParagraph(
+            "conferenceEndDate",
+            conference.conferenceEndDate
+          );
+          createLabeledParagraph("indexed", conference.indexed);
+          createLabeledParagraph("keywords", conference.keywords);
+          createLabeledParagraph("organizers", conference.organizers);
+          createLabeledParagraph("publicationInfo", conference.publicationInfo);
+          createLabeledParagraph(
+            "registrationDetails",
+            conference.registrationDetails
+          );
+
+          createLabeledParagraph("track", conference.track);
+          createLabeledParagraph("venueDetails", conference.venueDetails);
+          createLabeledParagraph("abstract", conference.abstract);
+          createLabeledParagraph("paperFile", conference.paperFile);
+          createLabeledParagraph("pptFormatFile", conference.pptFormatFile);
+          createLabeledParagraph(
+            "presentationGuidelinesFile",
+            conference.presentationGuidelinesFile
+          );
+          createLabeledParagraph(
+            "presentationScheduleFile",
+            conference.presentationScheduleFile
+          );
+          createLabeledParagraph(
+            "programScheduleFile",
+            conference.programScheduleFile
+          );
+
+          // Append the card to the container
+          card.appendChild(createUpdateBtn(conference._id));
+          card.appendChild(createDeleteBtn(conference._id));
+          addConferenceDiv.appendChild(card);
+        });
       }
 
-      getdata(1);
+      (async () => {
+        await getdata();
+        addNextPreviousBtn();
+      })();
+
+      //
+      //
+      //
+      //
+
+      function addNextPreviousBtn() {
+        const BtnDiv = document.createElement("div");
+        BtnDiv.className = "BtnDiv";
+        BtnDiv.appendChild(createNextBtn());
+        BtnDiv.appendChild(createPreviousBtn());
+        const text = document.createElement("p");
+        text.innerText = "PageNO: " + currentPage;
+        text.style.color = "antiquewhite";
+        text.style.fontSize = "1.3rem";
+        BtnDiv.appendChild(text);
+        addConferenceDiv.appendChild(BtnDiv);
+      }
+
+      //update and delete buttons
+      function createUpdateBtn(id) {
+        const updateBtn = document.createElement("button");
+        updateBtn.className = "btn";
+        updateBtn.innerText = id;
+        updateBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          submitButton.removeEventListener("click", submitBtn);
+          var responseData;
+
+          form.reset();
+          submitButton.innerText = "Update";
+          response.conferenceSubmissions.forEach((ele) => {
+            if (ele._id == id) {
+              console.log(ele._id);
+              responseData = ele;
+            }
+          });
+
+          console.log(responseData);
+
+          // Populate the form fields with existing data
+          document.getElementById("title").value = responseData.title || "";
+          document.getElementById("shortcutTitle").value =
+            responseData.shortcutTitle || "";
+          document.getElementById("organizers").value =
+            responseData.organizers || "";
+          document.getElementById("authors").value = responseData.authors || "";
+          document.getElementById("email").value = responseData.email || "";
+          document.getElementById("phone").value = responseData.phone || "";
+          document.getElementById("abstract").value =
+            responseData.abstract || "";
+          document.getElementById("keywords").value =
+            responseData.keywords || "";
+          document.getElementById("indexed").value = responseData.indexed || "";
+          document.getElementById("track").value = responseData.track || "";
+          document.getElementById("venue").value =
+            responseData.venueDetails || "";
+          document.getElementById("registration").value =
+            responseData.registrationDetails || "";
+          document.getElementById("publication").value =
+            responseData.publicationInfo || "";
+
+          // Add event listener to the submit button
+          submitButton.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            submitButton.innerText = "Updating...";
+            submitButton.disabled = true;
+
+            try {
+              console.log("logging id", id);
+
+              // Make the PATCH request
+              const response = await fetch(`${api}/update-conference/${id}`, {
+                method: "PATCH",
+                body: formData,
+              });
+
+              // Check if the response is ok
+              if (!response.ok) {
+                throw new Error(`Failed to update: ${response.statusText}`);
+              }
+
+              const responseData = await response.json();
+
+              // Check for server response message
+              if (responseData.message) {
+                alert(responseData.message);
+              } else {
+                alert("Update successful!");
+              }
+            } catch (error) {
+              console.error("Error while updating conference:", error);
+              alert(`An error occurred: ${error.message}`);
+            } finally {
+              submitButton.innerText = "Update";
+              submitButton.disabled = false;
+            }
+          });
+        });
+
+        return updateBtn;
+      }
+
+      function createDeleteBtn(id) {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "btn";
+        deleteBtn.innerText = "Delete";
+
+        deleteBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+
+          // Confirm the delete action with the user
+          const confirmDelete = confirm(
+            "Are you sure you want to delete this item?"
+          );
+          if (!confirmDelete) return;
+
+          try {
+            // Disable the button to prevent multiple clicks
+            deleteBtn.disabled = true;
+            deleteBtn.innerText = "Deleting...";
+
+            // Send DELETE request to the API
+            const response = await fetch(`${api}/delete-conference/${id}`, {
+              method: "DELETE",
+            });
+
+            // Check if the response is ok
+            if (!response.ok) {
+              throw new Error(`Failed to delete: ${response.statusText}`);
+            }
+
+            const responseData = await response.json();
+
+            // Show success message and remove the item from the UI
+            if (responseData.message) {
+              alert(responseData.message);
+              // Optionally, remove the deleted item's row or card from the UI
+              const itemToDelete = document.getElementById(`item-${id}`);
+              if (itemToDelete) itemToDelete.remove();
+            }
+          } catch (error) {
+            console.error("Error while deleting conference:", error);
+            alert(`An error occurred: ${error.message}`);
+          } finally {
+            // Reset the button state
+            location.reload();
+            deleteBtn.disabled = false;
+            deleteBtn.innerText = "Delete";
+          }
+        });
+
+        return deleteBtn;
+      }
+
+      //Next and Previous Buttons
+      function createNextBtn() {
+        const nextBtn = document.createElement("button");
+        nextBtn.innerText = "Next";
+        if (currentPage == totalPages) {
+          nextBtn.disabled = true;
+          nextBtn.style.backgroundColor = "#a4bcd7";
+        }
+        nextBtn.addEventListener("click", async function next() {
+          currentPage++;
+          if (currentPage <= totalPages) {
+            console.log(currentPage);
+            let skipNo = (currentPage - 1) * 10;
+            addConferenceDiv.innerHTML = "";
+            await getdata(skipNo);
+            addNextPreviousBtn();
+          } else {
+            nextBtn.removeEventListener("click", next);
+            nextBtn.style.backgroundColor = "#a4bcd7";
+          }
+        });
+
+        return nextBtn;
+      }
+      function createPreviousBtn() {
+        const previousBtn = document.createElement("button");
+        previousBtn.innerText = "Previous";
+        if (currentPage == 1) {
+          previousBtn.disabled = true;
+          previousBtn.style.backgroundColor = "#a4bcd7";
+        }
+        previousBtn.addEventListener("click", async function previous() {
+          currentPage--;
+          if (currentPage > 0 && currentPage <= totalPages) {
+            console.log(currentPage);
+            let skipNo = (currentPage - 1) * 10;
+            addConferenceDiv.innerHTML = "";
+            await getdata(skipNo);
+            addNextPreviousBtn();
+          } else {
+            previousBtn.removeEventListener("click", previous);
+            previousBtn.style.backgroundColor = "#a4bcd7";
+          }
+        });
+
+        return previousBtn;
+      }
     </script>
   </body>
 </html>

@@ -89,9 +89,29 @@ app.post(
   ]),
   confranceController.addConferenceSubmission
 );
+
 app.get("/conferences", conferencePage.upcomingConferencesPage);
 app.get("/all-conferences", conferencePage.conferencePage);
 app.patch("/update", upload.array("files", 2), bookController.updateBookData);
+
+//update conferene by id
+app.patch(
+  "/update-conference/:id",
+  upload.fields([
+    { name: "paperFile", maxCount: 1 },
+    { name: "programScheduleFile", maxCount: 1 },
+    { name: "presentationScheduleFile", maxCount: 1 },
+    { name: "presentationGuidelinesFile", maxCount: 1 },
+    { name: "pptFormatFile", maxCount: 1 },
+    { name: "conferenceBanner", maxCount: 1 },
+  ]),
+  confranceController.updateConferenceSubmission
+);
+//Delete element by id
+
+app.delete("/delete-conference/:id", confranceController.deleteConferenceSubmission);
+
+
 
 // Routes for Postman
 app.get("/bookss", bookController.read);
