@@ -1,4 +1,3 @@
-const cssPath = "studentMembership.css";
 const StudentMembershipHtml = `<!DOCTYPE html>
 
 <html lang="en">

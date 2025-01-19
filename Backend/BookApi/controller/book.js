@@ -98,14 +98,22 @@ exports.delete = async (req, res) => {
 
 // Controller method to delete all books
 exports.deleteAll = async (req, res) => {
-  const books = await Book.find();
+  try {
+    // Delete all books in a single operation
+    const result = await Book.deleteMany();
 
-  books.map(async (book) => {
-    const id = book._id;
-    const doc = await Book.findByIdAndDelete(id);
-    console.log(doc);
-    res.send(doc);
-  });
+    // Send a success response with the result
+    res.status(200).json({
+      message: "All books have been deleted.",
+      deletedCount: result.deletedCount, // Number of deleted documents
+    });
+  } catch (error) {
+    // Handle any errors
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while deleting books.", error });
+  }
 };
 
 //

@@ -4,7 +4,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-
+require("dotenv").config();
 // Controllers
 const bookController = require("./controller/book");
 const confranceController = require("./controller/confrance");
@@ -109,15 +109,18 @@ app.patch(
 );
 //Delete element by id
 
-app.delete("/delete-conference/:id", confranceController.deleteConferenceSubmission);
-
-
+app.delete(
+  "/delete-conference/:id",
+  confranceController.deleteConferenceSubmission
+);
+//Delete-Allitems
+app.get("/delete-all-conferences", confranceController.deleteAll);
 
 // Routes for Postman
 app.get("/bookss", bookController.read);
 app.post("/book", bookController.create);
 app.delete("/:id", bookController.delete);
-app.get("/delete-all", bookController.deleteAll);
+app.get("/delete-all-books", bookController.deleteAll);
 
 // Start server
 app.listen(PORT, () => {

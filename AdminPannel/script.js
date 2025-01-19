@@ -1,6 +1,6 @@
 var result1;
 // const api = "https://test-purpose-yesu.onrender.com";
-const api = "https://supreme-fortnight-4jvwrg4v9wvrcqq5j-8080.app.github.dev";
+const api = "https://curly-train-qw5v7qr6q79c99w-8080.app.github.dev";
 const uploadBtn = document.getElementById("btn");
 const uploadForm = document.getElementById("uploadForm");
 
@@ -190,6 +190,7 @@ async function uploadBookDetailes(event) {
     });
 
     const result = await response.json(); // Parse response as JSON
+    console.log(result);
 
     if (result.message) {
       // console.log(result.message); // Show success message

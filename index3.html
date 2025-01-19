@@ -1,12 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- const express = require("express");
+const multer = require("multer");
+const cors = require("cors");
+const fs = require("fs");
+const mega = require("megajs");
+//express server
+const port = 8080;
+const app = express();
+
+//mega cloud
+
+const storage = new mega.Storage({
+  email: "autofilter00@gmail.com",
+  password: "12qwAS!@",
+});
+
+// midlware
+app.use(cors());
+
+//multer
+const multerStorage = multer.memoryStorage();
+const upload = multer(multerStorage);
+
+//routes
+
+const mime = require("mime-types");
+
+storage.once("ready", () => {
+  console.log("login in mega cloud");
+
+  app.get("/image/:fileHandle", async (req, res) => {
+    const fileHandle = req.params.fileHandle;
+    // console.log(fileHandle);
+
+    const files = storage.files; // Access all files in Mega storage
+    let fileFound = false;
+
+    for (const fileName in files) {
+      const file = files[fileName];
+      if (file.name === fileHandle) {
+        fileFound = true; // File is found
+
+        // Log and save the file's link
+        // console.log(file.name, fileHandle);
+        const fileLink = await file.link();
+        fs.appendFile(
+          "./links.txt",
+          `${file.name}  : ${fileLink}/image/${file.name}\n\n`,
+          (err) => {
+            if (err) {
+              console.log("Error writing to file:", err);
+            } else {
+              console.log("File link saved!");
+            }
+          }
+        );
+
+        // Determine the MIME type of the file
+        const fileExtension = file.name.split(".").pop();
+        const mimeType = mime.lookup(fileExtension); // Correct function for mime-types
+
+        if (!mimeType) {
+          return res.status(415).send("Unsupported Media Type.");
+        }
+
+        // Set the Content-Type and stream the file
+        res.setHeader("Content-Type", mimeType);
+        const downloadStream = file.download();
+        return downloadStream.pipe(res); // Send the file and end the response
+      }
+    }
+
+    if (!fileFound) {
+      // If no matching file is found, send a 404 response
+      res.status(404).send("File not found.");
+    }
+  });
+
+  app.get("/", async (req, res) => {
+    const files = storage.files; // Access all files in Mega storage
+
+    // Generate HTML for image tags
+    let imgHtml = "";
+    for (const fileName in files) {
+      const file = files[fileName];
+      if (!file.directory) {
+        imgHtml += `<img src="/image/${file.name}" alt="${file.name}" style="max-width: 300px; margin: 10px;">\n`;
+        console.log(file.name);
+      }
+    }
+
+    // Build the full HTML page
+    const Html = `<!DOCTYPE html>
+  <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enhanced Info Section</title>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Files</title>
   </head>
   <body>
-
+    <h1>Files</h1>
+    ${imgHtml}
   </body>
-</html>
+  </html>`;
+
+    // Send the HTML response
+    res.send(Html);
+  });
+
+  app.post("/", upload.array("files", 2), (req, res) => {
+    const files = req.files; // Access uploaded files
+    if (!files || files.length === 0) {
+      return res.status(400).json({ error: "No files uploaded." });
+    }
+
+    const uploadedLinks = []; // Array to store uploaded file links
+
+    files.forEach((file) => {
+      const uniqueName = `${Date.now()}-${file.originalname}`; // Generate unique filename
+      const uploadStream = storage.upload({ name: uniqueName }, file.buffer);
+
+      uploadStream.once("complete", async (uploadedFile) => {
+        console.log("File uploaded successfully:", uploadedFile.name);
+
+        uploadedFile.link({ key: true }, (err, link) => {
+          if (err) {
+            console.error("Error generating link:", err);
+          } else {
+            console.log("File link:", link);
+            uploadedLinks.push({ name: uploadedFile.name, link });
+
+            // Send response after all files are uploaded
+            if (uploadedLinks.length === files.length) {
+              res.json({ status: "success", files: uploadedLinks });
+            }
+          }
+        });
+      });
+    });
+  });
+});
+// storage.on("close", () => {
+//   console.log("closed");
+// });
+//server listning on port 8080
+app.listen(port, (err) => {
+  if (err) {
+    return err;
+  }
+  console.log("server running on port 8080");
+}); -->

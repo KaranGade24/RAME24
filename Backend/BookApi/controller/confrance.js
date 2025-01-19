@@ -216,3 +216,20 @@ exports.deleteConferenceSubmission = async (req, res) => {
     res.status(500).json({ message: "Failed to delete conference submission" });
   }
 };
+
+exports.deleteAll = async (req, res) => {
+  try {
+    // Delete all conference submissions in a single operation
+    const result = await ConferenceSubmission.deleteMany();
+
+    // Send a success response with the result
+    res.status(200).json({
+      message: "All conference submissions have been deleted.",
+      deletedCount: result.deletedCount, // Number of deleted documents
+    });
+  } catch (error) {
+    // Handle any errors
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while deleting submissions.", error });
+  }
+};
