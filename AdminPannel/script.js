@@ -1,6 +1,6 @@
 var result1;
 // const api = "https://test-purpose-yesu.onrender.com";
-const api = "https://curly-train-qw5v7qr6q79c99w-8080.app.github.dev";
+const api = "https://rame24.onrender.com";
 const uploadBtn = document.getElementById("btn");
 const uploadForm = document.getElementById("uploadForm");
 
