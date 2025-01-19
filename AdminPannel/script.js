@@ -194,14 +194,14 @@ async function uploadBookDetailes(event) {
 
     if (result.message) {
       // console.log(result.message); // Show success message
-      uploadBtn.innerText = "upload";
       alert(result.message);
-      // location.reload(); // use to reload window when data is added
     }
   } catch (error) {
     // console.error("Error uploading files:", error);
-    uploadBtn.innerText = "upload";
     alert("Failed to upload files. Please try again.");
+  } finally {
     location.reload(); // use to reload window when data is added
+    uploadBtn.innerText = "upload";
+    uploadForm.reset();
   }
 }
