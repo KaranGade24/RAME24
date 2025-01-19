@@ -104,8 +104,7 @@ function displayBooks(books) {
 
       try {
         // Make the PATCH request to update the book data
-        const response = await fetch(
-          "https://supreme-fortnight-4jvwrg4v9wvrcqq5j-8080.app.github.dev/update",
+        const response = await fetch( api+"/update",
           {
             method: "PATCH", // Use PATCH method to update
             body: formData, // Send the form data

@@ -6,7 +6,7 @@ exports.singleConferencePage = async (req, res) => {
     const id = req.params.id;
     const conference = await conferanceData.findById(id);
     const imagePath =
-      "/uploads" +
+      "../uploads" +
       (conference?.conferenceBanner?.split("/uploads")[1] ||
         "../images/default-book-cover.jpg");
     console.log(imagePath);
