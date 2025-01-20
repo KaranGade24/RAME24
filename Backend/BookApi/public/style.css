@@ -1,0 +1,230 @@
+/* General Reset */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+
+/* Header Styles */
+.rame-logo-banner {
+  background-color: aqua;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.ResearchAssociation-div-img {
+  height: 40%;
+  width: 90%;
+  background-image: url("./images/rame_full_name.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.RAME_PUBLISHERS_LOGO2-div-img {
+  width: 95%;
+  height: 100%;
+  background-image: url("./images/RAME_PUBLISHERS_LOGO2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Slider Styles */
+/* Styling for the slider container */
+.slider-container {
+  padding: 10px;
+  margin: auto;
+  width: 80%;
+  margin-top: 10px;
+  height: 300px; /* Adjust this based on the size you want */
+  border-radius: 20px; /* Rounded corners for a polished look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #e2e1e1; /* Light background for contrast */
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+/* The slider itself which holds the images */
+.slider {
+  transition: transform 1s ease; /* Smooth transition for slide effect */
+  height: 100%;
+}
+.slider .slide {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+/* Each image takes up 100% of the container */
+.slider .slide img {
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain; */
+  flex-shrink: 0;
+  animation: slide-animation 10s 1s infinite linear alternate;
+}
+
+@keyframes slide-animation {
+  0% {
+    transform: translateX(0);
+  }
+  7% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-100%);
+  }
+  37% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(-200%);
+  }
+  67% {
+    transform: translateX(-200%);
+  }
+  93% {
+    transform: translateX(-300%);
+  }
+
+  100% {
+    transform: translateX(-300%);
+  }
+}
+
+/* Our Branches Section */
+.branches {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+.branches h2 {
+  color: #3a6186;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-size: 24px;
+}
+.branches-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.branch-card {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #ffffff;
+}
+.branch-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.branch-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #3a6186;
+}
+.branch-card p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #555;
+}
+.visit-btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  background: #3a6186;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s, transform 0.3s;
+}
+.visit-btn:hover {
+  background: #89253e;
+  transform: scale(1.05);
+}
+
+/* Footer Section */
+.footer {
+  background: linear-gradient(135deg, #3a6186, #89253e);
+  color: white;
+  padding: 50px 20px;
+  text-align: left;
+}
+.footer-container {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.footer-section {
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.footer-section h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #ffffff;
+}
+.footer-section ul {
+  list-style: none;
+}
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+.footer-section ul li a:hover {
+  color: #f0e68c;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+}
+.footer a:hover {
+  text-decoration: underline;
+  color: blue;
+}
+.social-icons a {
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+@media (max-width: 1080px) {
+  .slider-container {
+    height: 200px;
+    width: 85%;
+  }
+}
+@media (max-width: 720px) {
+  .slider-container {
+    height: 150px;
+    width: 95%;
+  }
+}
