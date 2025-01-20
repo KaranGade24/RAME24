@@ -5,6 +5,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
+const mega = require("megajs")
 // Controllers
 const bookController = require("./controller/book");
 const confranceController = require("./controller/confrance");
@@ -53,15 +54,18 @@ async function mongoDbConnection() {
 mongoDbConnection();
 
 // Multer configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage: storage });
+const multerStorage = multer.memoryStorage();
+const upload = multer({ storage: multerStorage });
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, uploadDir);
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
+// const upload = multer({ storage: storage });
 
 // Routes for Frontend
 // Routes for getting data

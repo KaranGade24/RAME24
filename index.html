@@ -306,6 +306,7 @@
   <div class="added-conferences"></div>
 
   <script>
+    var responseGet;
     const form = document.getElementById("conferenceForm");
 
     const api = "https://rame24.onrender.com";
@@ -407,11 +408,13 @@
     method: "GET",
   });
 
-  const response = await conferenceData.json();
-  console.log(response.conferenceSubmissions);
+  responseGet = await conferenceData.json();
+  console.log(responseGet);
+  console.log(responseGet.conferenceSubmissions);
+  
 
-  const conferences = response.conferenceSubmissions;
-  const totalPages = Math.ceil(response.conferenceCount / 10);
+  const conferences = responseGet.conferenceSubmissions;
+  const totalPages = Math.ceil(responseGet.conferenceCount / 10);
 
   conferences.forEach((conference) => {
     // Create the main card div
@@ -520,7 +523,9 @@
 
         form.reset();
         submitButton.innerText = "Update";
-        response.conferenceSubmissions.forEach((ele) => {
+        console.log(responseGet);
+      
+        responseGet.conferenceSubmissions.forEach((ele) => {
           if (ele._id == id) {
             console.log(ele._id);
             responseData = ele;
@@ -532,7 +537,7 @@
         // Populate the form fields with existing data
         document.getElementById("title").value = responseData.title || "";
         document.getElementById("shortcutTitle").value =
-          responseData.shortcutTitle || "";
+        responseData.shortcutTitle || "";
         document.getElementById("organizers").value =
           responseData.organizers || "";
         document.getElementById("authors").value = responseData.authors || "";
