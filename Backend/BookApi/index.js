@@ -26,7 +26,7 @@ const studenMembership = require("./public/All_Server_Files/studentMembership/st
 // Initialize the app
 const app = express();
 const PORT = 8080;
-const uri = "mongodb+srv://root:root@cluster0.m87cn.mongodb.net/BookApi";
+const uri = process.env.MONGODB_URI;
 
 // Use relative path (relative to current script location)
 const uploadDir = path.join(__dirname, "/public/uploads");
