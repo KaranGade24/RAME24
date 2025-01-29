@@ -6,6 +6,7 @@ const Bookschema = new Schema({
   genre: { type: String, required: true },
   year: { type: Number, required: true },
   description: { type: String, required: true },
+  keywords: { type: [String], required: true },
   Abstraction: { type: String, require: true },
   printPrice: { type: Number, require: true },
   ebookPrice: { type: Number, require: true },
@@ -16,8 +17,8 @@ const Bookschema = new Schema({
   files: [
     {
       originalName: { type: String, required: true },
-      megaName: { type: String, required: true },
-      filePath: { type: String, required: true },
+      cloudinaryUrl: { type: String, required: true },
+      fileType: { type: String, required: true },
       fileSize: { type: Number, required: true },
     },
   ],

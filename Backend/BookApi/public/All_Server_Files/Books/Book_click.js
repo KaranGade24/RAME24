@@ -1,6 +1,7 @@
 const model = require("../../../../../Backend/BookApi/model/book");
 const Book = model.book;
-
+// const api = "https://rame24.onrender.com";
+const api = "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
 exports.renderBookPage = async (req, res) => {
   try {
     const bookId = req.params.id; // Get the book ID from the request parameters
@@ -12,25 +13,74 @@ exports.renderBookPage = async (req, res) => {
     // "/mega-cloud/" + book.files[0]?.megaName ||
     // "../images/DefaultBookCover.png"
 
-    const imagePath =
-      "/mega-cloud/" +
-      (bookData.files[0]?.megaName || "../upload/default-book-cover.jpg");
-    const eBookPath = "/mega-cloud/" + bookData.files[1]?.megaName;
-    console.log(eBookPath);
-
+    const imagePath = bookData.files[0]?.cloudinaryUrl;
+    const eBookPath =bookData.files[1]?.cloudinaryUrl;
+    console.log(bookData.files);
+    const metaTags = `
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${bookData?.description || 'Explore this amazing book from RAME Publishers.'}" />
+    <meta name="keywords" content="books, ${bookData.genre || ''}, ${
+          bookData.name || ''
+        }, publishing, ${bookData.editor || ''}, ebook, printed books, ${
+          bookData.isbn || ''
+        }, ${bookData.year || ''}" />
+    <meta name="author" content="${bookData.editor || 'Unknown'}" />
+    <meta name="publisher" content="RAME Publishers" />
+    <meta name="book:isbn" content="${bookData.isbn || ''}" />
+    <meta name="book:release_date" content="${bookData.year || ''}" />
+    <meta name="book:price:ebook" content="₹${bookData.ebookPrice || '0'}" />
+    <meta name="book:price:print" content="₹${bookData.printPrice || '0'}" />
+    <meta name="book:format" content="eBook and Print" />
+    <meta name="genre" content="${bookData.genre || ''}" />
+    <meta name="language" content="en" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="book" />
+    <meta property="og:title" content="${bookData.name || 'Book by RAME Publishers'}" />
+    <meta property="og:description" content="${bookData.description || 'Explore this amazing book from RAME Publishers.'}" />
+    <meta property="og:image" content="${imagePath || '/default-book-cover.jpg'}" />
+    <meta property="og:url" content="${api + "/book/" + bookData._id}" />
+    <meta property="og:site_name" content="RAME Publishers" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${bookData.name || 'Book by RAME Publishers'}" />
+    <meta name="twitter:description" content="${bookData.description || 'Explore this amazing book from RAME Publishers.'}" />
+    <meta name="twitter:image" content="${imagePath}" />
+    <meta name="twitter:site" content="@RAME_Publishers" />
+    <meta name="twitter:creator" content="@${bookData.editor || 'Unknown'}" />
+    
+    <!-- Google Scholar Metadata (Highwire Press Tags) -->
+    <meta name="citation_title" content="${bookData.name || ''}" />
+    <meta name="citation_author" content="${bookData.editor || ''}" />
+    <meta name="citation_publication_date" content="${bookData.year || ''}" />
+    <meta name="citation_publisher" content="RAME Publishers" />
+    <meta name="citation_isbn" content="${bookData.isbn || ''}" />
+    <meta name="citation_language" content="en" />
+    <meta name="citation_pdf_url" content="${eBookPath || ''}" />
+    <meta name="citation_abstract" content="${bookData.description || ''}" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="${api + "/book/" + bookData._id}" />
+    
+    `;
+    
+    
     // Generate HTML dynamically for the selected book
     const html = `
     <!DOCTYPE html>
     <html lang="en">
       <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="description"
-          content="${
-            bookData.name || "Book Details"
-          } - Published by RAME Publishers"
-        />
+        ${metaTags}
         <title>RAME Association - ${bookData.name || "Book"} </title>
         <style>
           /* General Styles */
@@ -227,11 +277,9 @@ exports.renderBookPage = async (req, res) => {
             </p>
 
             <h3>Pricing</h3>
-            <p><strong>eBook (PDF):</strong> ₹${
-              bookData.ebookPrice || 350
-            }<br />
+            <p><strong>eBook (PDF):</strong> ₹${bookData.ebookPrice}<br />
             <strong>Print Book:</strong> ₹${
-              bookData.printPrice || 850
+              bookData.printPrice
             } (Free Shipping)</p>
           </div>
 

@@ -1,3 +1,5 @@
+// http://localhost:8080
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,12 +7,12 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
-const mega = require("megajs");
+const cloudinary = require("cloudinary").v2;
+
 // Controllers
 const bookController = require("./controller/book");
-const confranceController = require("./controller/confrance");
+const confranceController = require("./controller/conference");
 const studenMembershipController = require("./controller/studentMembership");
-const megaControllers = require("./controller/megaCloud");
 // Models
 const model = require("./model/book");
 const Book = model.book;
@@ -57,24 +59,13 @@ mongoDbConnection();
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
 
-//mega cloud longing
-
-const storage = new mega.Storage({
-  email: process.env.MEGA_CLOUD_EMIAL,
-  password: process.env.MEGA_CLOUD_PASSWORD,
+// cloud longing
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
-
-exports.storage = storage;
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, uploadDir);
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-// const upload = multer({ storage: storage });
+exports.cloudinary = cloudinary;
 
 // Routes for Frontend
 // Routes for getting data
@@ -125,52 +116,30 @@ app.post("/book", bookController.create);
 app.delete("/:id", bookController.delete);
 app.get("/delete-all-books", bookController.deleteAll);
 
-//to get the mega-cloud files
+//fetchs file
 
-storage.once("ready", () => {
-  console.log("mega login");
+//add conferences
+app.post(
+  "/add-conference",
+  multerUpload.fields([
+    { name: "paperFile", maxCount: 1 },
+    { name: "programScheduleFile", maxCount: 1 },
+    { name: "presentationScheduleFile", maxCount: 1 },
+    { name: "presentationGuidelinesFile", maxCount: 1 },
+    { name: "pptFormatFile", maxCount: 1 },
+    { name: "conferenceBanner", maxCount: 1 },
+  ]),
+  confranceController.addConferenceSubmission
+);
 
-  //fetchs file
-  megaControllers.setMegaStorage(storage);
-  app.get("/mega-cloud/:fileName", megaControllers.megaCloudFiles);
-
-  //add conferences
-  confranceController.setConferenceStorage(storage);
-  app.post(
-    "/add-conference",
-    multerUpload.fields([
-      { name: "paperFile", maxCount: 1 },
-      { name: "programScheduleFile", maxCount: 1 },
-      { name: "presentationScheduleFile", maxCount: 1 },
-      { name: "presentationGuidelinesFile", maxCount: 1 },
-      { name: "pptFormatFile", maxCount: 1 },
-      { name: "conferenceBanner", maxCount: 1 },
-    ]),
-    confranceController.addConferenceSubmission
-  );
-
-  //add books
-  bookController.setStorage(storage);
-  app.post(
-    "/add",
-    multerUpload.array("files", 2),
-    bookController.addBookWithFiles
-  );
-});
+//add books
+app.post(
+  "/add",
+  multerUpload.array("files", 2),
+  bookController.addBookWithFiles
+);
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//

@@ -1,6 +1,7 @@
 var result1;
-// const api = "https://test-purpose-yesu.onrender.com";
-const api = "https://rame24.onrender.com";
+const api =
+  "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
+// const api = "https://rame24.onrender.com";
 const uploadBtn = document.getElementById("btn");
 const uploadForm = document.getElementById("uploadForm");
 
@@ -10,6 +11,7 @@ const bookName = document.getElementById("name");
 const isbn = document.getElementById("isbn");
 const genre = document.getElementById("genre");
 const year = document.getElementById("year");
+const keywords = document.getElementById("keywords");
 const printPrice = document.getElementById("printPrice");
 const ebookPrice = document.getElementById("ebookPrice");
 const editor = document.getElementById("editor");
@@ -46,8 +48,9 @@ function displayBooks(books) {
     const bookItem = document.createElement("div");
     bookItem.classList.add("book-item");
     bookItem.innerHTML = `
-     <p><strong>Book Cover:</strong></br></br><img src="${api}/mega-cloud/${book?.files[0]?.megaName}" alt="Book Cover" /></p>
-      <p><strong>Name:</strong> ${book?.name}</p>
+     <p><strong>Book Cover:</strong></br></br><img src="${book?.files[0]?.cloudinaryUrl}" alt="Book Cover" /></p>
+     <p><strong>Name:</strong> ${book?.name}</p>
+     <p><strong>Keywords:</strong> ${book?.keywords}</p>
       <p><strong>ISBN:</strong> ${book?.isbn}</p>
       <p><strong>Genre:</strong> ${book?.genre}</p>
       <p><strong>Year:</strong> ${book?.year}</p>
@@ -55,7 +58,7 @@ function displayBooks(books) {
       <p><strong>eBook Price:</strong> ${book?.ebookPrice}</p>
       <p><strong>Description:</strong> ${book?.description}</p>
       <p><strong>Abstraction:</strong> ${book?.Abstraction}</p>
-      <p><strong>eBook:</strong> <a href="${api}/mega-cloud/${book?.files[1]?.megaName}" target="_blank" class="file-link">Download eBook</a></p>
+      <p><strong>eBook:</strong> <a href="${book?.files[1]?.cloudinaryUrl}" target="_blank" class="file-link">Download eBook</a></p>
 
 `;
     //creating update button to update perticular book
@@ -75,6 +78,7 @@ function displayBooks(books) {
       // Populate the form with the book's existing data
       bookName.value = book.name;
       isbn.value = book.isbn;
+      keywords.value = book.keywords;
       genre.value = book.genre;
       year.value = book.year;
       printPrice.value = book.printPrice;

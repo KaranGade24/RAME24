@@ -111,11 +111,7 @@ exports.readBooks = async (req, res) => {
     text-decoration: none;
 "  href="/book/${book._id}">
         <img
-          src="${
-            "/mega-cloud/" + book.files[0]?.megaName ||
-            "../images/DefaultBookCover.png"
-            // || "../images/DefaultBookCover.png"
-          }"
+          src="${book.files[0]?.cloudinaryUrl}"
           alt="${book.name} Cover"
           width="100%"
         />
@@ -145,13 +141,37 @@ exports.readBooks = async (req, res) => {
       }" class="pagination-link">Next</a>`;
     }
 
+    const metaTags = bookData.map((book) => {
+      return `<!-- Meta Tags for Book ${book.name} -->
+        <meta name="title" content="${book.name} - RAME Publishers" />
+        <meta name="description" content="${book.description}" />
+        <meta name="keywords" content="${book.keywords.join(", ")}, ${
+        book.name
+      }" />
+        <meta name="author" content="${book.editor}" />
+        <meta name="publisher" content="RAME Publishers" />
+        <meta name="genre" content="${book.genre}" />
+        <meta name="robots" content="index, follow" />
+    
+        <meta property="og:type" content="book" />
+        <meta property="og:title" content="${book.name}" />
+        <meta property="og:description" content="${book.description}" />
+        <meta property="og:image" content="${book.files[0].cloudinaryUrl}" />
+        <meta property="og:url" content="/book/${book._id}" />
+    
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="${book.name}" />
+        <meta name="twitter:description" content="${book.description}" />
+        <meta name="twitter:image" content="${book.files[0].cloudinaryUrl}" />
+        <link rel="canonical" href="/book/${book._id}" />
+      `;
+    }).join("");
+
     // Complete HTML response with pagination and responsive styles
     const html = `<!DOCTYPE html>
     <html lang="en">
       <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="RAME Books - International Publisher of Technical Books in Science and Technology." />
+        ${metaTags}
         <title>RAME Assciation - Books</title>
         <link rel="stylesheet" href="/All_Server_Files/Books/RAME_5_book_style.css">
         <style>

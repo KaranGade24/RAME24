@@ -6,10 +6,13 @@
     <title>Upload Form</title>
     <link rel="stylesheet" href="./AdminPannel/style.css" />
   </head>
+
   <body>
-    <center><h1>Admin Panel</h1></center>
+    <center>
+      <h1>Admin Panel</h1>
+    </center>
     <h2>Add Book Information</h2>
-    <a href = "/RAME24/"><button>Click to upload conferences</button></a>
+    <a href="/index.html"><button>Click to upload conferences</button></a>
     <form id="uploadForm" method="POST" enctype="multipart/form-data">
       <!-- Form fields for book details (same as before) -->
       <label for="name">Name:</label>
@@ -45,6 +48,13 @@
         name="description"
         rows="5"
         placeholder="Enter a brief description of the book..."
+        required
+      ></textarea>
+      <label for="keywords">Keywords:</label>
+      <textarea
+        id="keywords"
+        name="keywords"
+        placeholder="Enter a keywords releted to book separated by commas..."
         required
       ></textarea>
 

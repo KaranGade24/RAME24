@@ -1,6 +1,13 @@
+// const { cloudinary } = require("..");
 const model = require("../model/book");
 const Book = model.book;
+const cloudinary = require("cloudinary").v2;
 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 // const mega = require("../index/");
 
 exports.create = (req, res) => {
@@ -38,6 +45,10 @@ exports.read = async (req, res) => {
   }
 };
 
+
+
+//update code
+
 exports.updateBookData = async (req, res) => {
   try {
     // Log the form data and uploaded files for debugging purposes
@@ -47,36 +58,36 @@ exports.updateBookData = async (req, res) => {
     // Check if files were uploaded
     if (req.files && req.files.length > 0) {
       const uploadedFiles = await Promise.all(
-        files.map((file) => {
+        req.files.map((file) => {
           const uniqueName = `${Date.now()}-${file.originalname}`;
           return new Promise((resolve, reject) => {
-            const uploadStream = storage.upload(
-              { name: uniqueName },
-              file.buffer
-            );
+            const resourceType = file.mimetype.startsWith("image/") ? "image" : "raw"; // Define resource type based on file type
 
-            uploadStream.once("complete", async (uploadedFile) => {
-              try {
-                const fileInfo = {
-                  originalName: file.originalname,
-                  megaName: uploadedFile.name,
-                  filePath: await uploadedFile.link(),
-                  fileSize: uploadedFile.size,
-                };
-                resolve(fileInfo);
-              } catch (err) {
-                reject(err);
+            // Upload the file to Cloudinary
+            cloudinary.uploader.upload_stream(
+              {
+                resource_type: resourceType,
+                public_id: `uploads/${uniqueName}`, // Unique file name with timestamp
+              },
+              (error, uploadedFile) => {
+                if (error) {
+                  reject(error); // Reject the promise if there's an error
+                } else {
+                  const fileInfo = {
+                    originalName: file.originalname,
+                    cloudinaryUrl: uploadedFile.secure_url,
+                    fileSize: file.size,
+                    fileType: resourceType,
+                  };
+                  resolve(fileInfo); // Resolve the promise with file information
+                }
               }
-            });
-
-            uploadStream.once("error", (err) => {
-              reject(err);
-            });
+            ).end(file.buffer); // Send the file buffer to Cloudinary
           });
         })
       );
 
-      // Add the files to the book data
+      // Add the uploaded files to the book data
       req.body.files = uploadedFiles;
     } else {
       // If no files are uploaded, set files to an empty array
@@ -94,7 +105,7 @@ exports.updateBookData = async (req, res) => {
 
     // Find and update the book in the database using the bookId
     const doc = await Book.findOneAndUpdate({ _id: bookId }, bookData, {
-      new: true,
+      new: true, // Return the updated document
     });
 
     if (!doc) {
@@ -111,14 +122,48 @@ exports.updateBookData = async (req, res) => {
   }
 };
 
+
+
 exports.delete = async (req, res) => {
   const id = req.params.id;
+
   try {
+    // ✅ Find the document in the database
     const doc = await Book.findOneAndDelete({ _id: id });
-    res.json(doc);
+
+    if (!doc) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    // ✅ Delete associated files from Cloudinary
+    if (doc.files && doc.files.length > 0) {
+      await Promise.all(
+        doc.files.map(async (file) => {
+          try {
+            // Extract Cloudinary public_id from the URL
+            const publicId = file.cloudinaryUrl.split("/").pop().split(".")[0]; // Removes extension if present
+
+            // ✅ Determine if file is "image" or "raw"
+            const resourceType = file.fileType === "image" ? "image" : "raw";
+
+            // ✅ Delete file from Cloudinary
+            await cloudinary.uploader.destroy(publicId, {
+              resource_type: resourceType,
+            });
+          } catch (err) {
+            console.error("Failed to delete file from Cloudinary:", err);
+          }
+        })
+      );
+    }
+
+    res.json({
+      message: "Book and associated files deleted successfully",
+      deletedBook: doc,
+    });
   } catch (err) {
-    console.log(err);
-    res.send(err);
+    console.log("Error deleting book:", err);
+    res.status(500).json({ message: "Failed to delete book", error: err });
   }
 };
 
@@ -165,46 +210,44 @@ exports.addBookWithFiles = async (req, res) => {
       return res.status(400).json({ error: "No files uploaded." });
     }
 
-    // Map uploaded files to the desired format
+    // ✅ Upload files to Cloudinary with correct resource type
     const uploadedFiles = await Promise.all(
-      files.map((file) => {
-        const uniqueName = `${Date.now()}-${file.originalname}`;
+      files.map(async (file) => {
         return new Promise((resolve, reject) => {
-          const uploadStream = storage.upload(
-            { name: uniqueName },
-            file.buffer
+          const resourceType = file.mimetype.startsWith("image/")
+            ? "image"
+            : "raw";
+
+          const uploadStream = cloudinary.uploader.upload_stream(
+            { resource_type: resourceType }, // Set correct type (image or raw)
+            (error, uploadedFile) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve({
+                  originalName: file.originalname,
+                  cloudinaryUrl: uploadedFile.secure_url, // Correct Cloudinary URL
+                  fileSize: file.size,
+                  fileType: resourceType, // Save type (image/raw)
+                });
+              }
+            }
           );
 
-          uploadStream.once("complete", async (uploadedFile) => {
-            try {
-              const fileInfo = {
-                originalName: file.originalname,
-                megaName: uploadedFile.name,
-                filePath: await uploadedFile.link(),
-                fileSize: uploadedFile.size,
-              };
-              resolve(fileInfo);
-            } catch (err) {
-              reject(err);
-            }
-          });
-
-          uploadStream.once("error", (err) => {
-            reject(err);
-          });
+          uploadStream.end(file.buffer);
         });
       })
     );
 
     console.log("Uploaded Files Info:", uploadedFiles);
 
-    // Combine form data with file information
+    // ✅ Combine form data with file information
     const bookData = {
       ...req.body,
       files: uploadedFiles,
     };
 
-    // Save the book data in the database
+    // ✅ Save the book data in the database
     const book = new Book(bookData);
     await book.save();
 

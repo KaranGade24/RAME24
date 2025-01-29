@@ -1,4 +1,4 @@
-const model = require("../../../model/conferance");
+const model = require("../../../model/conference");
 const conferanceData = model.ConferenceSubmission;
 
 exports.singleConferencePage = async (req, res) => {
@@ -7,15 +7,94 @@ exports.singleConferencePage = async (req, res) => {
     const conference = await conferanceData.findById(id);
     console.log(conference);
 
-    const imagePath = "/mega-cloud/" + conference?.conferenceBanner?.megaName;
+    const imagePath = conference?.conferenceBanner?.cloudinaryUrl;
     console.log(imagePath);
+
+    const metaTags = `
+    <!-- Meta Tags for Conference: ${conference?.title} -->
+    <meta name="title" content="${conference?.title} - RAME Conferences" />
+    <meta name="description" content="${conference?.abstract || 'Discover all details about the conference on RAME Association.'}" />
+    <meta name="keywords" content="${conference?.keywords ? conference.keywords.join(', ') : 'conference, RAME, research, engineering'}" />
+    <meta name="author" content="${conference?.organizers || 'RAME Association'}" />
+    <meta name="publisher" content="RAME Publishers" />
+    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" /> <!-- For rich snippets and previews -->
+  
+    <!-- Google Scholar Metadata -->
+    <meta name="citation_title" content="${conference?.title}" />
+    <meta name="citation_author" content="${conference?.organizers || 'RAME Association'}" />
+    <meta name="citation_publication_date" content="${conference?.conferenceStartDate.split('T')[0]}" />
+    <meta name="citation_conference_title" content="${conference?.title}" />
+    <meta name="citation_doi" content="${conference?.doi || 'N/A'}" />
+    <meta name="citation_publisher" content="RAME Publishers" />
+  
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="conference" />
+    <meta property="og:title" content="${conference?.title}" />
+    <meta property="og:description" content="${conference?.abstract || 'Discover all details about the conference on RAME Association.'}" />
+    <meta property="og:image" content="${conference?.conferenceBanner?.cloudinaryUrl}" />
+    <meta property="og:url" content="/conference/${conference?._id}" />
+  
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${conference?.title}" />
+    <meta name="twitter:description" content="${conference?.abstract || 'Discover all details about the conference on RAME Association.'}" />
+    <meta name="twitter:image" content="${conference?.conferenceBanner?.cloudinaryUrl}" />
+    <link rel="canonical" href="/conference/${conference?._id}" />
+  
+    <!-- Additional SEO Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, noarchive, noodp" />
+    <meta name="language" content="English" />
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="India" />
+    <meta name="geo.position" content="28.6139;77.2090" />
+    <meta name="ICBM" content="28.6139, 77.2090" />
+    <meta name="theme-color" content="#000000" /> <!-- Optimizing for mobile browsers -->
+  
+    <!-- Additional Open Graph Tags for SEO -->
+    <meta property="og:site_name" content="RAME Conferences" />
+    <meta property="og:locale" content="en_US" />
+  
+    <!-- Schema.org for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Event",
+      "name": "${conference?.title}",
+      "startDate": "${conference?.conferenceStartDate.split('T')[0]}",
+      "endDate": "${conference?.conferenceEndDate.split('T')[0]}",
+      "location": {
+        "@type": "Place",
+        "name": "Conference Venue",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "${conference?.venueDetails || 'Venue not provided'}",
+          "addressLocality": "Online",
+          "addressRegion": "India",
+          "postalCode": "110001",
+          "addressCountry": "IN"
+        }
+      },
+      "description": "${conference?.abstract || 'Details about the conference.'}",
+      "image": "${conference?.conferenceBanner?.cloudinaryUrl}",
+      "organizer": {
+        "@type": "Organization",
+        "name": "RAME Association"
+      }
+    }
+    </script>
+  `;
+  
+  
+
 
     const singleConferencePageHtml = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+${metaTags}
     <title>RAME Association - ${
       conference?.shortcutTitle || "RAME Conferance"
     }</title>
@@ -107,9 +186,7 @@ exports.singleConferencePage = async (req, res) => {
           <h4>Presentation Schedule</h4>
           <p>Stay updated with the latest presentation schedule.</p>
           <a
-            href=${
-              "/mega-cloud/" + conference?.presentationScheduleFile?.megaName
-            }
+            href=${conference?.presentationScheduleFile?.cloudinaryUrl}
          target="_blank" >
             Download Schedule
           </a>
@@ -120,7 +197,7 @@ exports.singleConferencePage = async (req, res) => {
           <h4>Program Schedule</h4>
           <p>Explore the complete conference program in detail.</p>
           <a
-            href=${"/mega-cloud/" + conference?.programScheduleFile?.megaName}
+            href=${conference?.programScheduleFile?.cloudinaryUrl}
             target="_blank"
           >
             Download Program
@@ -132,9 +209,7 @@ exports.singleConferencePage = async (req, res) => {
           <h4>Presentation Guidelines</h4>
           <p>Follow the guidelines to ensure effective presentations.</p>
           <a
-            href=${
-              "/mega-cloud/" + conference?.presentationGuidelinesFile?.megaName
-            }
+            href=${conference?.presentationGuidelinesFile?.cloudinaryUrl}
          target="_blank" >
             Download Guidelines
           </a>
@@ -144,7 +219,7 @@ exports.singleConferencePage = async (req, res) => {
           <h4>PPT Format</h4>
           <p>Download the official PPT format for your presentation.</p>
           <a
-            href=${"/mega-cloud/" + conference?.pptFormatFile?.megaName}
+            href=${conference?.pptFormatFile?.cloudinaryUrl}
          target="_blank" >
             Download Format
           </a>
