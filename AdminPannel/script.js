@@ -1,6 +1,6 @@
 var result1;
 //const api =
-  "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
+ // "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
 const api = "https://rame24.onrender.com";
 const uploadBtn = document.getElementById("btn");
 const uploadForm = document.getElementById("uploadForm");
