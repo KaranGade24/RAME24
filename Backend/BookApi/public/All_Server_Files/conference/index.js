@@ -272,7 +272,7 @@ exports.upcomingConferencesPage = async (req, res) => {
     const now = new Date();
     const conferences = await conferanceData.find();
     // Filter for upcoming conferences
-const   upcomingConferences = conferences
+    const upcomingConferences = conferences
       .map((conference) => {
         const nowDate = new Date();
         const conferencedate = new Date(
@@ -300,12 +300,20 @@ const   upcomingConferences = conferences
       })
       .join("");
 
-      console.log({upcomingConferences});
-var upcomingMetaTags = "";
+    console.log({ upcomingConferences });
+    var upcomingMetaTags = "";
 
-      if(upcomingConferences){
-     upcomingMetaTags = upcomingConferences?.map((conference) => {
-        return `
+    if (upcomingConferences) {
+      upcomingMetaTags = conferences
+        ?.map((conference) => {
+          const nowDate = new Date();
+          const conferencedate = new Date(
+            conference.conferenceStartDate.split("T")[0]
+          );
+
+          if (nowDate < conferencedate)
+            {
+            return `
     <!-- Meta Tags for Conference: ${conference?.title} -->
     <meta name="title" content="${conference?.title} - RAME Conferences" />
     <meta name="description" content="${
@@ -407,9 +415,12 @@ var upcomingMetaTags = "";
       }
     }
     </script>
-  `;
-      })
-      .join("");
+  `;}
+  else{
+    return;
+  }
+        })
+        .join("");
     }
     // Filter for past 5 conferences
     const pastFiveConferences = await conferanceData
