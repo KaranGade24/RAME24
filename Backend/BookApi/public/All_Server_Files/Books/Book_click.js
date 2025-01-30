@@ -82,7 +82,9 @@ exports.renderBookPage = async (req, res) => {
       <head>
         ${metaTags}
         <title>RAME Association - ${bookData.name || "Book"} </title>
+        <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
         <style>
+
           /* General Styles */
           body {
             font-family: 'Arial', sans-serif;

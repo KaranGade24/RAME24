@@ -174,6 +174,7 @@ exports.conferencePage = async (req, res) => {
   <head>
     ${metaTags}
     <title>RAME Association - Conferances</title>
+    <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
     <link rel="stylesheet" href="/All_Server_Files/conference/style.css" />
   </head>
   <body>
@@ -271,7 +272,7 @@ exports.upcomingConferencesPage = async (req, res) => {
     const now = new Date();
     const conferences = await conferanceData.find();
     // Filter for upcoming conferences
-    const upcomingConferences = conferences
+const   upcomingConferences = conferences
       .map((conference) => {
         const nowDate = new Date();
         const conferencedate = new Date(
@@ -299,8 +300,11 @@ exports.upcomingConferencesPage = async (req, res) => {
       })
       .join("");
 
-    const upcomingMetaTags = upcomingConferences
-      ?.map((conference) => {
+      console.log({upcomingConferences});
+var upcomingMetaTags = "";
+
+      if(upcomingConferences){
+     upcomingMetaTags = upcomingConferences?.map((conference) => {
         return `
     <!-- Meta Tags for Conference: ${conference?.title} -->
     <meta name="title" content="${conference?.title} - RAME Conferences" />
@@ -406,7 +410,7 @@ exports.upcomingConferencesPage = async (req, res) => {
   `;
       })
       .join("");
-
+    }
     // Filter for past 5 conferences
     const pastFiveConferences = await conferanceData
       .find()
@@ -556,6 +560,7 @@ exports.upcomingConferencesPage = async (req, res) => {
 ${upcomingMetaTags}
  ${metaTags}
   <title>RAME Association - Upcoming Conferances</title>
+  <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
   <link rel="stylesheet" href="/All_Server_Files/conference/upcomingConferenceStyle.css">
   
 </head>

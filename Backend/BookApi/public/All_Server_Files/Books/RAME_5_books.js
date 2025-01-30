@@ -93,6 +93,7 @@ exports.read5book = async (req, res) => {
           content="RAME Books - International Publisher of Technical Books in Science and Technology."
         />
         <title>RAME Association - Books</title>
+        <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
        <link rel="stylesheet" href="/All_Server_Files/Books/RAME_5_book_style.css">
 
       </head>

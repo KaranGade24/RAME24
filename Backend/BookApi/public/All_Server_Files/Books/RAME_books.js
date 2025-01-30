@@ -27,6 +27,7 @@ exports.readBooks = async (req, res) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="No books found - RAME Books" />
     <title>RAME Association - Book not found</title>
+    <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -173,6 +174,7 @@ exports.readBooks = async (req, res) => {
       <head>
         ${metaTags}
         <title>RAME Assciation - Books</title>
+        <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
         <link rel="stylesheet" href="/All_Server_Files/Books/RAME_5_book_style.css">
         <style>
           body {

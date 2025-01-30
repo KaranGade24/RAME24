@@ -22,5 +22,6 @@ exports.studentMembership = async (req, res) => {
 
   } catch (error) {
     console.error("Error during form submission:", error);
+    res.send(error.message);
   }
 };

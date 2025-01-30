@@ -98,6 +98,7 @@ ${metaTags}
     <title>RAME Association - ${
       conference?.shortcutTitle || "RAME Conferance"
     }</title>
+    <link rel="icon" type="image/png" href="https://th.bing.com/th?id=OIP.4ODzmrtz6jvopPie4ZrBwQHaGh&w=80&h=80&c=1&vt=10&bgcl=f53f20&r=0&o=6&pid=5.1">
 <link rel="stylesheet" href="/All_Server_Files/conference/singleConference.css">
   </head>
   <body>
