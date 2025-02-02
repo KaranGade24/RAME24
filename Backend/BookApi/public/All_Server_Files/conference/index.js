@@ -60,7 +60,7 @@ exports.conferencePage = async (req, res) => {
     <meta property="og:image" content="${
       conference?.conferenceBanner?.cloudinaryUrl
     }" />
-    <meta property="og:url" content="/conference/${conference?._id}" />
+    <meta property="og:url" content="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
   
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -72,8 +72,8 @@ exports.conferencePage = async (req, res) => {
     <meta name="twitter:image" content="${
       conference?.conferenceBanner?.cloudinaryUrl
     }" />
-    <link rel="canonical" href="/conference/${conference?._id}" />
-  
+    <link rel="canonical" href="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
+   
     <!-- Additional SEO Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
@@ -129,7 +129,9 @@ exports.conferencePage = async (req, res) => {
       .map((conference) => {
         return ` 
         <div class="card">
-          <a href="/conference/${conference._id}">
+
+        <a href="/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}">
+
             <div>
               <h3>${conference.title}</h3>
               <div class="cardInfo">
@@ -159,7 +161,7 @@ exports.conferencePage = async (req, res) => {
         return `
         <ul>
   <li>
-    <a href="/conference/${conference._id}">
+     <a href="/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}">
       <h3>${conference.title}</h3>
     </a>
   </li>
@@ -281,7 +283,7 @@ exports.upcomingConferencesPage = async (req, res) => {
 
         if (nowDate < conferencedate) {
           return `
-      <a href = "/conference/${conference._id}">  <div class="card">
+          <a href="/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}">  <div class="card">
           <h3>${conference.title}</h3>
           <div class="cardInfo">
             <p><strong>Start date:</strong> ${
@@ -354,8 +356,7 @@ exports.upcomingConferencesPage = async (req, res) => {
     <meta property="og:image" content="${
       conference?.conferenceBanner?.cloudinaryUrl
     }" />
-    <meta property="og:url" content="/conference/${conference?._id}" />
-  
+    <meta property="og:url" content="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${conference?.title}" />
@@ -366,7 +367,7 @@ exports.upcomingConferencesPage = async (req, res) => {
     <meta name="twitter:image" content="${
       conference?.conferenceBanner?.cloudinaryUrl
     }" />
-    <link rel="canonical" href="/conference/${conference?._id}" />
+    <link rel="canonical" href="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
   
     <!-- Additional SEO Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -438,7 +439,7 @@ exports.upcomingConferencesPage = async (req, res) => {
         if (nowDate > conferencedate && fiveCounter < 5) {
           fiveCounter++;
           return `
-          <a href = "/conference/${conference._id}"><div class="card">
+          <a href = "/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}"><div class="card">
           <h3>${conference.title}</h3>
           <div class="cardInfo">
             <p><strong>Start date:</strong> ${
@@ -500,7 +501,7 @@ exports.upcomingConferencesPage = async (req, res) => {
         <meta property="og:image" content="${
           conference?.conferenceBanner?.cloudinaryUrl
         }" />
-        <meta property="og:url" content="/conference/${conference?._id}" />
+        <meta property="og:url" content="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
       
         <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary_large_image" />
@@ -512,7 +513,7 @@ exports.upcomingConferencesPage = async (req, res) => {
         <meta name="twitter:image" content="${
           conference?.conferenceBanner?.cloudinaryUrl
         }" />
-        <link rel="canonical" href="/conference/${conference?._id}" />
+        <link rel="canonical" href="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
       
         <!-- Additional SEO Meta Tags -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

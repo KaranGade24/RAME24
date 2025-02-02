@@ -1,4 +1,4 @@
-const ConferenceSubmissionModel = require("../model/conference");
+const ConferenceSubmissionModel = require("../../../model/conference");
 const ConferenceSubmission = ConferenceSubmissionModel.ConferenceSubmission;
 
 // Mega Cloud Storage
@@ -99,7 +99,6 @@ exports.getAllConferenceSubmissions = async (req, res) => {
         .status(404)
         .json({ message: "No conference submissions found" });
     }
-
     res.status(200).json({
       message: "Conference submissions fetched successfully!",
       conferenceSubmissions,

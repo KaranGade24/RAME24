@@ -3,8 +3,11 @@ const conferanceData = model.ConferenceSubmission;
 
 exports.singleConferencePage = async (req, res) => {
   try {
-    const id = req.params.id;
-    const conference = await conferanceData.findById(id);
+    const id = req.params.shortcutTitle.replace(/-/g, " ");
+    console.log(id,"id is");
+    const conferences = await conferanceData.find();
+    const conference = conferences.find((conference) => conference.shortcutTitle === id);
+
     console.log(conference);
 
     const imagePath = conference?.conferenceBanner?.cloudinaryUrl;
@@ -33,14 +36,14 @@ exports.singleConferencePage = async (req, res) => {
     <meta property="og:title" content="${conference?.title}" />
     <meta property="og:description" content="${conference?.abstract || 'Discover all details about the conference on RAME Association.'}" />
     <meta property="og:image" content="${conference?.conferenceBanner?.cloudinaryUrl}" />
-    <meta property="og:url" content="/conference/${conference?._id}" />
+    <meta property="og:url" content="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
   
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${conference?.title}" />
     <meta name="twitter:description" content="${conference?.abstract || 'Discover all details about the conference on RAME Association.'}" />
     <meta name="twitter:image" content="${conference?.conferenceBanner?.cloudinaryUrl}" />
-    <link rel="canonical" href="/conference/${conference?._id}" />
+    <link rel="canonical" href="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}" />
   
     <!-- Additional SEO Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -112,8 +115,8 @@ ${metaTags}
       <a href="/">Home</a>
       <a href="/conferences">Upcoming Conferences</a>
       <a href="/all-conferences">All Conferences</a>
-      <a href="#">Publishing Support</a>
-      <a href="/membership">Membership</a>
+      <a href="/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}/service">Call for Paper</a>
+      <a href="#">All Conferences</a>
     </nav>
 
     <main>

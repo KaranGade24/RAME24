@@ -1,0 +1,277 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+}
+header nav {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: #ffffff52;
+  color: black;
+  position: absolute;
+  z-index: 1;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+}
+header nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  text-decoration: none;
+}
+header nav ul a {
+  color: white;
+  text-decoration: none;
+}
+header nav ul li {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.597);
+  font-size: 1.2rem;
+  padding: 5px;
+  margin: 5px;
+  margin-left: 20px;
+}
+header nav ul li:hover {
+  cursor: pointer;
+  background-color: rgba(34, 32, 161, 0.801);
+}
+
+.banner {
+  margin: auto;
+  width: 100vw;
+  height: 70vh;
+  overflow: hidden;
+  opacity: 0.75;
+}
+.banner img {
+  /* opacity: 0.8; */
+  width: 100%;
+  height: 100%;
+}
+header .title {
+  margin: 10px;
+  padding: 10px;
+  font-size: 1.8rem;
+  font-weight: bolder;
+  /* z-index: 10; */
+  position: absolute;
+  color: white;
+  top: 25%;
+}
+header .title2 {
+  top: 40%;
+  font-size: 1.5rem;
+}
+header .summery {
+  top: 55%;
+  font-size: 20px;
+  width: 50%;
+  margin: auto;
+}
+
+/* main and rule */
+/* General Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Main Container */
+main {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 50px 20px;
+  background: #f9f9f9;
+  overflow: hidden;
+}
+
+/* Conference Title */
+.conference-title {
+  text-align: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 0.8s ease-in-out forwards;
+}
+
+.conference-title h1 {
+  font-size: 2.5rem;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Guidelines Section */
+.guideline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+/* Individual Rules */
+.rule {
+  flex: 1 1 45%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 1s ease-in-out forwards;
+}
+
+.rule:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.rule h3 {
+  color: #007bff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.rule p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+/* Buttons Section */
+.buttons {
+  text-align: center;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 1.2s ease-in-out forwards;
+}
+
+.paper-submit-btn {
+  background: linear-gradient(45deg, #007bff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-submit-btn:hover {
+  background: linear-gradient(45deg, #00c6ff, #007bff);
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Hover Effect */
+.paper-submit-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease-in-out;
+}
+
+.paper-submit-btn:hover::after {
+  left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guideline {
+    flex-direction: column;
+  }
+
+  .rule {
+    flex: 1 1 100%;
+  }
+
+  .conference-title h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* media query for header */
+
+@media (max-width: 720px) {
+  .banner {
+    height: 55%;
+  }
+  header nav ul li {
+    font-size: 15px;
+  }
+  header .title {
+    font-size: 18px;
+  }
+  header .title2 {
+    font-size: 1.3rem;
+  }
+  header .summery {
+    width: 80%;
+    font-size: 15px;
+  }
+}
+@media (max-width: 480px) {
+  header .title {
+    top: 30%;
+    font-size: 15px;
+  }
+  header .title2 {
+    top: 47%;
+    font-size: 25px;
+  }
+  header .summery {
+    display: none;
+  }
+  header nav ul li {
+    font-size: 13px;
+    margin-left: 2px;
+  }
+}

@@ -1,5 +1,5 @@
 // const { cloudinary } = require("..");
-const model = require("../model/book");
+const model = require("../../model/book");
 const Book = model.book;
 const cloudinary = require("cloudinary").v2;
 

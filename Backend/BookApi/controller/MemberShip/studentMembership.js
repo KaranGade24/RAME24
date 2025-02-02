@@ -1,5 +1,5 @@
 
-const model = require("../model/studentMembership");
+const model = require("../../model/studentMembership");
 const studentMembershipModel = model.studentMembership;
 
 exports.studentMembership = async (req, res) => {

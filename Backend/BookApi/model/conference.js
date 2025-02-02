@@ -10,6 +10,7 @@ const ConferenceSubmissionSchema = new Schema(
     shortcutTitle: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
     },
     organizers: {
@@ -52,7 +53,7 @@ const ConferenceSubmissionSchema = new Schema(
       required: true,
     },
     track: {
-      type: String, // E.g., "Thermal Engineering"
+      type: [String], // E.g., "Thermal Engineering"
       required: true,
       trim: true,
     },
@@ -116,3 +117,41 @@ exports.ConferenceSubmission = mongoose.model(
   "ConferenceSubmission",
   ConferenceSubmissionSchema
 );
+
+//conference paper form Schema
+
+const AuthorSchema = new mongoose.Schema({
+  name: { type: [String], required: true },
+  affiliation: { type: [String], required: true },
+  email: { type: [String], required: true, match: /.+\@.+\..+/ }, // Basic email validation
+});
+
+const PaperSchema = new mongoose.Schema(
+  {
+    paperTitle: { type: String, required: true },
+    paperAbstract: { type: String, required: true },
+    keywords: { type: String, required: true },
+    conferenceTrack: {
+      type: String,
+      required: true,
+    },
+    authors: {
+      type: [AuthorSchema],
+      required: true,
+      validate: (v) => v.length > 0,
+    }, // At least one author required
+    paperFile: {
+      fileName: { type: String, required: true },
+      fileUrl: { type: String, required: true },
+      fileSize: { type: String, required: true },
+    },
+    ReferenceConferenceId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ConferenceSubmission",
+      required: true,
+    }, // Extracted from URL
+  },
+  { timestamps: true } // Automatically adds createdAt & updatedAt
+);
+
+exports.PaperSubmission = mongoose.model("PaperSubmission", PaperSchema);
