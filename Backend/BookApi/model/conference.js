@@ -111,6 +111,10 @@ const ConferenceSubmissionSchema = new Schema(
       type: String, // Description of where papers will be published
       required: true,
     },
+    paperSubmissionInfo: {
+      type: String, // Description of paper Submission Info for editos who upload the paper
+      required: true,
+    },
     submissionDate: {
       type: Date,
       default: Date.now, // Automatically set the submission date

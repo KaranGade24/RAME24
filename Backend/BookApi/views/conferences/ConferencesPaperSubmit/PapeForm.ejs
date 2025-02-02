@@ -23,62 +23,62 @@
             </ul>
         </nav>
     </header>
+    
+        <main class="form-main">
+            <div class="form-container">
+                <h1>Submit Your Paper</h1>
+                <form id="paperForm" method="POST" enctype="multipart/form-data">
+                    <label for="paperTitle">Paper Title:</label>
+                    <input type="text" id="paperTitle" name="paperTitle" required />
 
-    <main class="form-main">
-        <div class="form-container">
-            <h1>Submit Your Paper</h1>
-            <form id="paperForm" method="POST" enctype="multipart/form-data">
-                <label for="paperTitle">Paper Title:</label>
-                <input type="text" id="paperTitle" name="paperTitle" required />
+                    <label for="paperAbstract">Paper Abstract:</label>
+                    <textarea id="paperAbstract" name="paperAbstract" required></textarea>
 
-                <label for="paperAbstract">Paper Abstract:</label>
-                <textarea id="paperAbstract" name="paperAbstract" required></textarea>
+                    <label for="keywords">Keywords:</label>
+                    <input type="text" id="keywords" name="keywords" required />
 
-                <label for="keywords">Keywords:</label>
-                <input type="text" id="keywords" name="keywords" required />
+                    <% const tracks=conference.track[0].split(","); %>
+                        <label for="conferenceTrack">Conference Track:</label>
+                        <select id="conferenceTrack" name="conferenceTrack" required>
+                            <option value="select">Select</option>
+                            <% tracks.forEach(option=> { %>
+                                <option value="<%= option.trim() %>">
+                                    <%= option.trim() %>
+                                </option>
+                                <% }); %>
+                        </select>
+                        <!-- Author Section -->
+                        <div id="authorSection">
+                            <div class="author-section">
+                                <label for="authorName">Author Name:</label>
+                                <input type="text" name="authors[0][name]" required />
 
-                <% const tracks=conference.track[0].split(","); %>
-                    <label for="conferenceTrack">Conference Track:</label>
-                    <select id="conferenceTrack" name="conferenceTrack" required>
-                        <option value="select">Select</option>
-                        <% tracks.forEach(option=> { %>
-                            <option value="<%= option.trim() %>">
-                                <%= option.trim() %>
-                            </option>
-                            <% }); %>
-                    </select>
-                    <!-- Author Section -->
-                    <div id="authorSection">
-                        <div class="author-section">
-                            <label for="authorName">Author Name:</label>
-                            <input type="text" name="authors[0][name]" required />
+                                <label for="authorAffiliation">Author Affiliation:</label>
+                                <input type="text" name="authors[0][affiliation]" required />
 
-                            <label for="authorAffiliation">Author Affiliation:</label>
-                            <input type="text" name="authors[0][affiliation]" required />
-
-                            <label for="authorEmail">Author Email:</label>
-                            <input type="email" name="authors[0][email]" required />
+                                <label for="authorEmail">Author Email:</label>
+                                <input type="email" name="authors[0][email]" required />
+                            </div>
                         </div>
-                    </div>
 
-                    <button type="button" class="add-author-btn" onclick="addAuthor()">Add Another Author</button>
+                        <button type="button" class="add-author-btn" onclick="addAuthor()">Add Another Author</button>
 
-                    <label for="manuscript">Upload Manuscript:</label>
-                    <input type="file" id="manuscript" name="paperFile" required />
+                        <label for="manuscript">Upload Manuscript:</label>
+                        <input type="file" id="manuscript" name="paperFile" required />
 
-                    <div class="form-footer">
-                        <button type="submit" class="submit-btn">Submit Paper</button>
-                    </div>
-            </form>
-        </div>
-    </main>
+                        <div class="form-footer">
+                            <button type="submit" class="submit-btn">Submit Paper</button>
+                        </div>
+                </form>
+            </div>
+        </main>
 
-    <footer class="site-footer">
-        <p>&copy; Conference. All rights reserved.</p>
-    </footer>
+        <footer class="site-footer">
+            <p>&copy; Conference. All rights reserved.</p>
+        </footer>
 
 
-    <script src="/All_JAVASCRIPT_Files/Conferences/PaperSubmit/PaperForm.js"></script>
+        <script src="/All_JAVASCRIPT_Files/Conferences/PaperSubmit/PaperForm.js"></script>
 </body>
 
 </html>

@@ -168,6 +168,10 @@ async function getdata(skipNo = 0) {
     createLabeledParagraph("venueDetails", conference?.venueDetails);
     createLabeledParagraph("abstract", conference?.abstract);
     createLabeledParagraph(
+      "paperSubmissionInfo",
+      conference?.paperSubmissionInfo
+    );
+    createLabeledParagraph(
       "paperFile",
       `<a href="${conference?.paperFile.cloudinaryUrl}"target ="_blank">Download Paper</a>`
     );
@@ -254,6 +258,8 @@ function createUpdateBtn(id) {
     document.getElementById("email").value = responseData.email || "";
     document.getElementById("phone").value = responseData.phone || "";
     document.getElementById("abstract").value = responseData.abstract || "";
+    document.getElementById("paperSubmissionInfo").value =
+      responseData.paperSubmissionInfo || "";
     document.getElementById("keywords").value = responseData.keywords || "";
     document.getElementById("indexed").value = responseData.indexed || "";
     document.getElementById("track").value = responseData.track || "";

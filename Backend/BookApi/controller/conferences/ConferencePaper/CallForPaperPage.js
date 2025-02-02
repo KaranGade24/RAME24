@@ -10,6 +10,7 @@ exports.CallForPaperPage = async (req, res) => {
   if (conference) {
     res.render("conferences/ConferencesPaperSubmit/CallForPaper", {
       shortcutTitle,
+      conference,
     });
   } else {
     res.sendFile(

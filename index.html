@@ -71,8 +71,7 @@
         <input type="file" id="guidelines" name="presentationGuidelinesFile" accept="application/pdf" />
 
         <label for="brochureFile">conference brochure File:</label>
-        <input type="file" id="brochureFile" name="brochureFile"
-          accept="application/pdf" />
+        <input type="file" id="brochureFile" name="brochureFile" accept="application/pdf" />
 
         <label for="pptFormat">PPT Format (First Slide):</label>
         <input type="file" id="pptFormat" name="pptFormatFile"
@@ -89,6 +88,10 @@
         <label for="publication">Publication Information:</label>
         <textarea id="publication" name="publicationInfo" rows="3"
           placeholder="Describe where the papers will be published, e.g., IOP Conference Series" required></textarea>
+
+        <label for="paperSubmissionInfo">Give paper submission info:</label>
+        <textarea id="paperSubmissionInfo" name="paperSubmissionInfo" rows="3"
+          placeholder="Give paper submission info to editors what type of paper should they upload" required></textarea>
 
         <button id="btn" type="submit">Submit</button>
         <button type="submit" class="update-btn" style="display: none">Update</button>
