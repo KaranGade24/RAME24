@@ -75,7 +75,6 @@ form.onsubmit = async (event) => {
     submitButton.disabled = false;
     submitButton.innerText = "Submit";
     form.reset();
-    location.reload();
   }
 };
 
@@ -115,12 +114,12 @@ async function getdata(skipNo = 0) {
     viewPaperBtn.innerText = "View Submited Paper";
     //visit site button
     visitSiteBtn.addEventListener("click", () => {
-      window.open(`${api}/conference/${conference.shortcutTitle}`, "_blank");
+      window.open(`${api}/conference/${conference?.shortcutTitle}`, "_blank");
     });
 
     //view paper button
     viewPaperBtn.addEventListener("click", () => {
-      const conferenceId = conference._id; // Your variable to pass
+      const conferenceId = conference?._id; // Your variable to pass
       window.open(
         "./Frontend/Conference/conferencePaperForm/uploadedPaperAdmin.html?data=" +
           encodeURIComponent(conferenceId),
@@ -145,54 +144,58 @@ async function getdata(skipNo = 0) {
     // Add all fields to the card
     createLabeledParagraph(
       "cover",
-      `<img src="${conference.conferenceBanner?.cloudinaryUrl}" alt="conferenceBanner" width ="30%" />`
+      `<img src="${conference?.conferenceBanner?.cloudinaryUrl}" alt="conferenceBanner" width ="30%" />`
     );
-    createLabeledParagraph("title", conference.title);
-    createLabeledParagraph("shortTitle", conference.shortcutTitle);
-    createLabeledParagraph("authors", conference.authors);
-    createLabeledParagraph("organizers", conference.organizers);
-    createLabeledParagraph("email", conference.email);
-    createLabeledParagraph("phone", conference.phone);
+    createLabeledParagraph("title", conference?.title);
+    createLabeledParagraph("shortTitle", conference?.shortcutTitle);
+    createLabeledParagraph("authors", conference?.authors);
+    createLabeledParagraph("organizers", conference?.organizers);
+    createLabeledParagraph("email", conference?.email);
+    createLabeledParagraph("phone", conference?.phone);
     createLabeledParagraph(
       "conferenceStartDate",
-      conference.conferenceStartDate
+      conference?.conferenceStartDate
     );
-    createLabeledParagraph("conferenceEndDate", conference.conferenceEndDate);
-    createLabeledParagraph("indexed", conference.indexed);
-    createLabeledParagraph("keywords", conference.keywords);
-    createLabeledParagraph("publicationInfo", conference.publicationInfo);
+    createLabeledParagraph("conferenceEndDate", conference?.conferenceEndDate);
+    createLabeledParagraph("indexed", conference?.indexed);
+    createLabeledParagraph("keywords", conference?.keywords);
+    createLabeledParagraph("publicationInfo", conference?.publicationInfo);
     createLabeledParagraph(
       "registrationDetails",
-      conference.registrationDetails
+      conference?.registrationDetails
     );
-    createLabeledParagraph("track", conference.track);
-    createLabeledParagraph("venueDetails", conference.venueDetails);
-    createLabeledParagraph("abstract", conference.abstract);
+    createLabeledParagraph("track", conference?.track);
+    createLabeledParagraph("venueDetails", conference?.venueDetails);
+    createLabeledParagraph("abstract", conference?.abstract);
     createLabeledParagraph(
       "paperFile",
-      `<a href="${conference.paperFile.cloudinaryUrl}"target ="_blank">Download Paper</a>`
+      `<a href="${conference?.paperFile.cloudinaryUrl}"target ="_blank">Download Paper</a>`
     );
     createLabeledParagraph(
       "programScheduleFile",
-      `<a href="${conference.programScheduleFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
+      `<a href="${conference?.programScheduleFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
     );
     createLabeledParagraph(
       "presentationScheduleFile",
-      `<a href="${conference.presentationScheduleFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
+      `<a href="${conference?.presentationScheduleFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
     );
     createLabeledParagraph(
       "presentationGuidelinesFile",
-      `<a href="${conference.presentationGuidelinesFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
+      `<a href="${conference?.presentationGuidelinesFile?.cloudinaryUrl}" target ="_blank">Download Paper</a>`
     );
 
     createLabeledParagraph(
+      "brochureFile",
+      `<a href="${conference?.brochureFile?.cloudinaryUrl}" target ="_blank">Download Paper</a>`
+    );
+    createLabeledParagraph(
       "pptFormatFile",
-      `<a href="${conference.pptFormatFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
+      `<a href="${conference?.pptFormatFile.cloudinaryUrl}" target ="_blank">Download Paper</a>`
     );
 
     // Append buttons for update and delete
-    card.appendChild(createUpdateBtn(conference._id));
-    card.appendChild(createDeleteBtn(conference._id));
+    card.appendChild(createUpdateBtn(conference?._id));
+    card.appendChild(createDeleteBtn(conference?._id));
 
     // Append the card to the container
     addConferenceDiv.appendChild(card);
@@ -295,7 +298,6 @@ function createUpdateBtn(id) {
         updatebtn.innerText = "Update";
         updatebtn.disabled = false;
         updatebtn.style.display = "none";
-        location.reload();
       }
     }
   });
@@ -344,7 +346,7 @@ function createDeleteBtn(id) {
       alert(`An error occurred: ${error.message}`);
     } finally {
       // Reset the button state
-      location.reload();
+
       deleteBtn.disabled = false;
       deleteBtn.innerText = "Delete";
     }

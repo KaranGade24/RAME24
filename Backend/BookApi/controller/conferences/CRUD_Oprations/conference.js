@@ -63,6 +63,7 @@ exports.addConferenceSubmission = async (req, res) => {
       presentationScheduleFile: uploadedFiles["presentationScheduleFile"],
       presentationGuidelinesFile: uploadedFiles["presentationGuidelinesFile"],
       pptFormatFile: uploadedFiles["pptFormatFile"],
+      brochureFile: uploadedFiles["brochureFile"],
       conferenceBanner: uploadedFiles["conferenceBanner"],
     };
 
@@ -211,6 +212,11 @@ exports.updateConferenceSubmission = async (req, res) => {
           req.files["presentationGuidelinesFile"][0]
         );
       }
+      if (req.files["brochureFile"]) {
+        updatedData.brochureFile = await uploadFileToCloudinary(
+          req.files["brochureFile"][0]
+        );
+      }
       if (req.files["pptFormatFile"]) {
         updatedData.pptFormatFile = await uploadFileToCloudinary(
           req.files["pptFormatFile"][0]
@@ -265,6 +271,7 @@ exports.deleteConferenceSubmission = async (req, res) => {
       "programScheduleFile",
       "presentationScheduleFile",
       "presentationGuidelinesFile",
+      "brochureFile",
       "pptFormatFile",
       "conferenceBanner",
     ];
@@ -314,17 +321,3 @@ exports.deleteAll = async (req, res) => {
   }
 };
 
-async function deleteFromMega(filePath) {
-  try {
-    const fileHandle = await megaStorage.file(filePath);
-    await new Promise((resolve, reject) => {
-      fileHandle.delete((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-  } catch (error) {
-    console.error("Error deleting file from MEGA:", error);
-    throw new Error("File deletion from MEGA failed");
-  }
-}

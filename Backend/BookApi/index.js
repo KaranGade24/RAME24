@@ -116,6 +116,7 @@ app.patch(
     { name: "presentationGuidelinesFile", maxCount: 1 },
     { name: "pptFormatFile", maxCount: 1 },
     { name: "conferenceBanner", maxCount: 1 },
+    { name: "brochureFile", maxCount: 1 },
   ]),
   confranceController.updateConferenceSubmission
 );
@@ -145,6 +146,7 @@ app.post(
     { name: "presentationGuidelinesFile", maxCount: 1 },
     { name: "pptFormatFile", maxCount: 1 },
     { name: "conferenceBanner", maxCount: 1 },
+    { name: "brochureFile", maxCount: 1 },
   ]),
   confranceController.addConferenceSubmission
 );

@@ -115,8 +115,8 @@ ${metaTags}
       <a href="/">Home</a>
       <a href="/conferences">Upcoming Conferences</a>
       <a href="/all-conferences">All Conferences</a>
-      <a href="/conference/${conference.shortcutTitle.replace(/\s+/g, "-")}/service">Call for Paper</a>
-      <a href="#">All Conferences</a>
+      <a href="/conference/${conference?.shortcutTitle.replace(/\s+/g, "-")}/service">Call for Paper</a>
+      
     </nav>
 
     <main>

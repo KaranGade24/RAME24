@@ -1,6 +1,6 @@
 var result1;
 //const api =
- // "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
+// "https://8080-idx-rame24-1737798853897.cluster-fu5knmr55rd44vy7k7pxk74ams.cloudworkstations.dev";
 const api = "https://rame24.onrender.com";
 const uploadBtn = document.getElementById("btn");
 const uploadForm = document.getElementById("uploadForm");
@@ -123,8 +123,6 @@ function displayBooks(books) {
         // console.log("Book updated successfully:", result);
         alert("Book updated successfully!"); // Notify the user
         uploadBtn.innerText = "Update";
-        // Optionally, reload or refresh the page to reflect changes
-        location.reload(); // This will reload the page after the update
       } catch (error) {
         // Catch network errors or other issues with the request
         // console.error("Network error:", error);
@@ -155,7 +153,6 @@ function displayBooks(books) {
         if (deletedBookResponse.status === 200) {
           alert("book deleted successfully");
           deleteBtn.innerText = "delete";
-          location.reload();
         }
       } catch (error) {
         deleteBtn.innerText = "delete";
@@ -201,7 +198,6 @@ async function uploadBookDetailes(event) {
     // console.error("Error uploading files:", error);
     alert("Failed to upload files. Please try again.");
   } finally {
-    // location.reload(); // use to reload window when data is added
     uploadBtn.innerText = "upload";
     // uploadForm.reset();
   }

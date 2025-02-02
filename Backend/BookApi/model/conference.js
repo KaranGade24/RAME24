@@ -15,7 +15,7 @@ const ConferenceSubmissionSchema = new Schema(
     },
     organizers: {
       type: [String],
-      required: true,
+      // required: true,
       trim: true,
     },
     conferenceStartDate: {
@@ -37,7 +37,7 @@ const ConferenceSubmissionSchema = new Schema(
     },
     phone: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     abstract: {
@@ -64,6 +64,12 @@ const ConferenceSubmissionSchema = new Schema(
       fileSize: Number,
     },
     programScheduleFile: {
+      originalName: String,
+      cloudinaryUrl: String,
+      fileType: String,
+      fileSize: Number,
+    },
+    brochureFile: {
       originalName: String,
       cloudinaryUrl: String,
       fileType: String,
