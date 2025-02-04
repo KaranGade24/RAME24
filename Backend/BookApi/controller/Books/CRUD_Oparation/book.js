@@ -1,5 +1,5 @@
 // const { cloudinary } = require("..");
-const model = require("../../model/book");
+const model = require("../../../model/book");
 const Book = model.book;
 const cloudinary = require("cloudinary").v2;
 
@@ -32,6 +32,8 @@ exports.read5 = async (req, res) => {
     res.send(err);
   }
 };
+
+
 exports.read = async (req, res) => {
   const id = req.params.id;
 

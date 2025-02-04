@@ -1,6 +1,6 @@
 const pageTitle = document.getElementById("page-title");
-// const api =
-// "https://8080-idx-rame24-1738211022490.cluster-3g4scxt2njdd6uovkqyfcabgo6.cloudworkstations.dev";
+//const api =
+//"https://8080-idx-rame24-1738211022490.cluster-3g4scxt2njdd6uovkqyfcabgo6.cloudworkstations.dev";
 
 const api = "https://rame24.onrender.com";
 var conferenceId, mappedData;
@@ -14,14 +14,21 @@ function createCard(
   date,
   fileName,
   fileUrl,
-  id
+  id,
+  selectedValue
 ) {
   return `<div class="card">
+
+  <div class = "select-card">
+
   <select name="select" id=${id}>
   <option value="select">Select</option>
   <option value="accept">Accept</option>
   <option value="reject">Reject</option>
 </select>
+<p class = "selectedValue" style = "color:${selectedValue.color}">${selectedValue.action}</p>
+</div>
+
             <h3 class="card-title">${title}</h3>
             <p class="card-info"><strong>Authors:</strong> ${author}</p> 
             <p class="card-info"><strong>Conference Track</strong>: ${conferenceTrack}</p>
@@ -60,6 +67,7 @@ function createCard(
     console.log(doc.uploadedPaper[0]);
 
     mappedData = await doc.uploadedPaper.map((item) => ({
+      selectedValue: item.selectedValue,
       id: item._id,
       title: item.paperTitle, // Paper Title
       abstract: item.paperAbstract, // Paper Abstract
@@ -102,7 +110,8 @@ function createCard(
           item.date,
           item.fileName,
           item.fileUrl,
-          item.id
+          item.id,
+          item.selectedValue
         )
       );
     });

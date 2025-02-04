@@ -160,6 +160,10 @@ const PaperSchema = new mongoose.Schema(
       ref: "ConferenceSubmission",
       required: true,
     }, // Extracted from URL
+    selectedValue: {
+      type: Object,
+      default: { action: "❔ NA", color: "#808080" },
+    },
   },
   { timestamps: true } // Automatically adds createdAt & updatedAt
 );

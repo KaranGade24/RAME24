@@ -12,7 +12,7 @@ const cloudinary = require("cloudinary").v2;
 const ejs = require("ejs");
 
 // Controllers
-const bookController = require("./controller/Books/book");
+const bookController = require("./controller/Books/CRUD_Oparation/book");
 const confranceController = require("./controller/conferences/CRUD_Oprations/conference");
 const studenMembershipController = require("./controller/MemberShip/studentMembership");
 
@@ -166,6 +166,10 @@ app.post(
   multerUpload.array("files", 2),
   bookController.addBookWithFiles
 );
+//controller books
+const bookPages = require("./controller/Books/AllPages/pagess");
+//book pages all book get
+app.get("/recent-books", bookPages.recentBooksPage);
 
 // Fallback route for handling unknown routes
 app.use((req, res) => {

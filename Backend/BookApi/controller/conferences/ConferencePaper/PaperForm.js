@@ -160,6 +160,26 @@ exports.sendEmail = async (req, res) => {
       },
     });
 
+    try {
+      const updatedValue =
+        selectedValue === "accept"
+          ? { action: "✅ Accepted", color: "#28a745" }
+          : { action: "❌ Rejected", color: "#dc3545" };
+
+      const updatedPaper = await PaperSubmission.findByIdAndUpdate(
+        selectedId,
+        { $set: { selectedValue: updatedValue } }, // Update only selectedValue
+        { new: true, runValidators: false } // ✅ Prevent validation errors
+      );
+      if (!updatedPaper) {
+        return res.status(404).json({ error: "Paper not found" });
+      }
+      console.log("status update success");
+    } catch {
+      console.log("error to save select status");
+    return  res.send("error to save select status");
+    }
+
     // Ensure all emails are sent before responding
     await Promise.all(
       toEmails.map(async (email) => {
