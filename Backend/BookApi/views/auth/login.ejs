@@ -82,7 +82,7 @@
                     const renderLocation = getCookie("currentUrl") // Redirect after login
                     // alert(renderLocation)
                     console.log(renderLocation);
-                    if (renderLocation === "/login") {
+                    if (renderLocation === "/login" || renderLocation === "/favicon.ico") {
                         window.location.href = "/";
                     }
                     else {
