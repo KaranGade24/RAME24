@@ -30,28 +30,24 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
 
   // Render papers based on current filters and pagination
   function renderPapers(reset = false) {
-    let allTrack = "";
+    let allTrack = [];
     if (reset) {
       cardContainer.innerHTML = "";
       currentPage = 1;
     }
 
     allTrack = papers.map((paper) => paper?.conferenceTrack);
-
     // Use a Set to remove duplicates
     const uniqueTracks = [...new Set(allTrack)];
-
     let count = 0;
-    const allTacks = uniqueTracks.map((tag) => {
-      if (tag) {
-        if (count)
-          return `
-      <option value="${tag}">${tag}</option>`;
-      } else {
-        count++;
-        return `<option value="">All Tracks</option>`;
-      }
-    });
+
+    const allTracks =
+      `<option value="">All Tracks</option>` +
+      uniqueTracks
+        .map((tag) => `<option value="${tag}">${tag}</option>`)
+        .join("");
+
+    console.log(allTracks);
 
     // Filter papers by search term
     // Start with all papers
@@ -70,7 +66,7 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
 
     // Filter by selected tag
     const selectedTag = tagSelect.value;
-    tagSelect.innerHTML = allTacks;
+    tagSelect.innerHTML = allTracks;
     tagSelect.value = selectedTag;
     if (selectedTag) {
       console.log(selectedTag);
