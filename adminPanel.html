@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Manage Submitted Papers</title>
+  <link rel="stylesheet" href="./Frontend/admin/style.css">
+</head>
+
+<body>
+  <header>Admin Panel - Manage Submitted Papers</header>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <button id="downloadBtn">Download Excel file for all papers</button>
+    <input type="text" id="searchInput" placeholder="Search by title or author...">
+    <select id="sortSelect">
+      <option value="date">Sort by Date</option>
+      <option value="title">Sort by Title</option>
+      <option value="author">Sort by Author</option>
+    </select>
+    <select id="tagSelect">
+      <option value="">All Tags</option>
+    </select>
+    <select id="status-select">
+      <option value="">Select Status</option>
+      <option value="✅ Accepted">Accept</option>
+      <option value="❌ Rejected">Reject</option>
+      <option value="🔷 Resolved">Resolve</option>
+      <option value="❔ NA">Pendding</option>
+    </select>
+  </div>
+
+  <!-- Card Container -->
+  <div class="card-container" id="cardContainer">
+    <!-- Cards will be dynamically generated -->
+
+
+
+  </div>
+
+  <!-- Load More Button for Pagination -->
+  <div class="load-more-container">
+    <button id="loadMoreBtn">Load More</button>
+  </div>
+
+  <!-- Modal for Detailed View, Edit & Reviewer Comments -->
+  <div class="modal" id="paperModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <div id="modalBody">
+        <!-- Dynamic modal content goes here -->
+      </div>
+    </div>
+  </div>
+
+
+  <script src="./Frontend/admin/script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!-- let papers = [
+{
+  "paperTitle": "AI-Powered Automation in Healthcare",
+  "paperAbstract": "This paper explores the impact of AI-driven automation on the healthcare industry.",
+  "keywords": ["AI", "Automation", "Healthcare"],
+  "conferenceTrack": "Artificial Intelligence",
+  "authors": [
+    {
+      "name": ["karan,arjun"],
+      "affiliation": ["Harvard Medical School"],
+      "email": ["johndoe@example.com"]
+    }
+  ],
+  "paperFile": {
+    "fileName": "AI_Healthcare.pdf",
+    "fileUrl": "https://example.com/AI_Healthcare.pdf",
+    "fileSize": "2MB"
+  },
+  "ReferenceConferenceId": "65a123456789abcdef123456",
+  "selectedValue": {
+    "action": "❌ Rejected",
+    "color": "#FFA500"
+  },
+  "loginUserRef": "65b123456789abcdef123456",
+  "Reviewers": [
+    {
+      "RviewerValidation": "Approved",
+      "reviewerName": "Dr. Alice Brown",
+      "reviewerEmail": "alice.brown@example.com",
+      "reviewerComments": ["Excellent research.", "Needs more references."],
+      "paperId": "65c123456789abcdef123456"
+    }
+  ]
+}
+,
+{
+  "paperTitle": "Blockchain Security in IoT",
+  "paperAbstract": "An analysis of how blockchain technology enhances security in IoT networks.",
+  "keywords": ["Blockchain", "IoT", "Cybersecurity"],
+  "conferenceTrack": "Cybersecurity",
+  "authors": [
+    {
+      "name": ["Dr. Emily Clark", "Prof. Michael Lee"],
+      "affiliation": ["MIT", "Stanford University"],
+      "email": ["emily.clark@example.com", "michael.lee@example.com"]
+    }
+  ],
+  "paperFile": {
+    "fileName": "Blockchain_IoT.pdf",
+    "fileUrl": "https://example.com/Blockchain_IoT.pdf",
+    "fileSize": "3.5MB"
+  },
+  "ReferenceConferenceId": "65d123456789abcdef123456",
+  "selectedValue": {
+    "action": "🔷 Resolved",
+    "color": "blue"
+  },
+  "loginUserRef": "65e123456789abcdef123456",
+  "Reviewers": [
+    {
+      "RviewerValidation": "Accepted with Minor Revisions",
+      "reviewerName": "Dr. Robert Green",
+      "reviewerEmail": "robert.green@example.com",
+      "reviewerComments": ["Great paper!", "Consider adding more real-world examples."],
+      "paperId": "65f123456789abcdef123456"
+    }
+  ]
+}
+,
+// Add more paper objects as needed...
+]; -->

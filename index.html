@@ -14,91 +14,96 @@
   </center>
   <h2>Submit Conferences</h2>
   <a href="https://karangade24.github.io/RAME24/index1.html"><button>Click to upload books</button><a>
-      <form id="conferenceForm" enctype="multipart/form-data">
-        <label for="title">ConferenceTitle:</label>
-        <input type="text" id="title" name="title" placeholder="Enter your conference title" required />
-        <label for="shortcutTitle">Conference shortcut Title:</label>
-        <input type="text" id="shortcutTitle" name="shortcutTitle" placeholder="Enter your shortcut conference title"
-          required />
+      <br>
+      <br>
+      <a href="https://karangade24.github.io/RAME24/adminPanel.html"><button>Click to upload books</button><a></a>
+        <form id="conferenceForm" enctype="multipart/form-data">
+          <label for="title">ConferenceTitle:</label>
+          <input type="text" id="title" name="title" placeholder="Enter your conference title" required />
+          <label for="shortcutTitle">Conference shortcut Title:</label>
+          <input type="text" id="shortcutTitle" name="shortcutTitle" placeholder="Enter your shortcut conference title"
+            required />
 
-        <label for="organizers">organizers: </label>
-        <input type="text" id="organizers" name="organizers" rows="3"
-          placeholder="organizers name separated by commas (optional)" />
+          <label for="organizers">organizers: </label>
+          <input type="text" id="organizers" name="organizers" rows="3"
+            placeholder="organizers name separated by commas (optional)" />
 
-        <label for="conferenceStartDate">conference start date:</label>
-        <input type="datetime-local" id="conferenceStartDate" name="conferenceStartDate"
-          placeholder="Enter conference start date" required />
+          <label for="conferenceStartDate">conference start date:</label>
+          <input type="datetime-local" id="conferenceStartDate" name="conferenceStartDate"
+            placeholder="Enter conference start date" required />
 
-        <label for="conferenceEndDate">conference end date:</label>
-        <input type="datetime-local" id="conferenceEndDate" name="conferenceEndDate"
-          placeholder="Enter conference end date" required />
+          <label for="conferenceEndDate">conference end date:</label>
+          <input type="datetime-local" id="conferenceEndDate" name="conferenceEndDate"
+            placeholder="Enter conference end date" required />
 
-        <label for="authors">Editors:</label>
-        <textarea id="authors" name="authors" rows="3" placeholder="List authors separated by commas"
-          required></textarea>
+          <label for="authors">Editors:</label>
+          <textarea id="authors" name="authors" rows="3" placeholder="List authors separated by commas"
+            required></textarea>
 
-        <label for="email">Contact Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter contact email" required />
+          <label for="email">Contact Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter contact email" required />
 
-        <label for="phone">Contact Phone:</label>
-        <input type="text" id="phone" name="phone" placeholder="Enter contact phone number (optional)" />
+          <label for="phone">Contact Phone:</label>
+          <input type="text" id="phone" name="phone" placeholder="Enter contact phone number (optional)" />
 
-        <label for="abstract">About Conferences:</label>
-        <textarea id="abstract" name="abstract" rows="5" placeholder="Enter the abstract of your paper"
-          required></textarea>
+          <label for="abstract">About Conferences:</label>
+          <textarea id="abstract" name="abstract" rows="5" placeholder="Enter the abstract of your paper"
+            required></textarea>
 
-        <label for="keywords">Keywords:</label>
-        <input type="text" id="keywords" name="keywords" placeholder="Enter keywords separated by commas" required />
+          <label for="keywords">Keywords:</label>
+          <input type="text" id="keywords" name="keywords" placeholder="Enter keywords separated by commas" required />
 
-        <label for="indexed">indexed:</label>
-        <input type="text" id="indexed" name="indexed" placeholder="Enter indexed separated by commas" required />
+          <label for="indexed">indexed:</label>
+          <input type="text" id="indexed" name="indexed" placeholder="Enter indexed separated by commas" required />
 
-        <label for="track">Conference Track:</label>
-        <input type="text" id="track" name="track" placeholder="E.g., Thermal Engineering, Material Science" required />
+          <label for="track">Conference Track:</label>
+          <input type="text" id="track" name="track" placeholder="E.g., Thermal Engineering, Material Science"
+            required />
 
-        <label for="conferenceBanner">Upload conference Banner image</label>
-        <input type="file" id="conferenceBanner" name="conferenceBanner" accept="image/*" />
-        <label for="file">Upload Proceedings (PDF):</label>
-        <input type="file" id="file" name="paperFile" accept="application/pdf" />
+          <label for="conferenceBanner">Upload conference Banner image</label>
+          <input type="file" id="conferenceBanner" name="conferenceBanner" accept="image/*" />
+          <label for="file">Upload Proceedings (PDF):</label>
+          <input type="file" id="file" name="paperFile" accept="application/pdf" />
 
-        <label for="schedule">Program Schedule:</label>
-        <input type="file" id="schedule" name="programScheduleFile" accept="application/pdf" />
+          <label for="schedule">Program Schedule:</label>
+          <input type="file" id="schedule" name="programScheduleFile" accept="application/pdf" />
 
-        <label for="presentation">Presentation Schedule:</label>
-        <input type="file" id="presentation" name="presentationScheduleFile" accept="application/pdf" />
+          <label for="presentation">Presentation Schedule:</label>
+          <input type="file" id="presentation" name="presentationScheduleFile" accept="application/pdf" />
 
-        <label for="guidelines">Presentation Guidelines:</label>
-        <input type="file" id="guidelines" name="presentationGuidelinesFile" accept="application/pdf" />
+          <label for="guidelines">Presentation Guidelines:</label>
+          <input type="file" id="guidelines" name="presentationGuidelinesFile" accept="application/pdf" />
 
-        <label for="brochureFile">conference brochure File:</label>
-        <input type="file" id="brochureFile" name="brochureFile" accept="application/pdf" />
+          <label for="brochureFile">conference brochure File:</label>
+          <input type="file" id="brochureFile" name="brochureFile" accept="application/pdf" />
 
-        <label for="pptFormat">PPT Format (First Slide):</label>
-        <input type="file" id="pptFormat" name="pptFormatFile"
-          accept="application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+          <label for="pptFormat">PPT Format (First Slide):</label>
+          <input type="file" id="pptFormat" name="pptFormatFile"
+            accept="application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" />
 
-        <label for="venue">Venue Details:</label>
-        <textarea id="venue" name="venueDetails" rows="3"
-          placeholder="Provide details about the venue or online platform details" required></textarea>
+          <label for="venue">Venue Details:</label>
+          <textarea id="venue" name="venueDetails" rows="3"
+            placeholder="Provide details about the venue or online platform details" required></textarea>
 
-        <label for="registration">Registration Details:</label>
-        <textarea id="registration" name="registrationDetails" rows="3"
-          placeholder="Provide registration instructions or details" required></textarea>
+          <label for="registration">Registration Details:</label>
+          <textarea id="registration" name="registrationDetails" rows="3"
+            placeholder="Provide registration instructions or details" required></textarea>
 
-        <label for="publication">Publication Information:</label>
-        <textarea id="publication" name="publicationInfo" rows="3"
-          placeholder="Describe where the papers will be published, e.g., IOP Conference Series" required></textarea>
+          <label for="publication">Publication Information:</label>
+          <textarea id="publication" name="publicationInfo" rows="3"
+            placeholder="Describe where the papers will be published, e.g., IOP Conference Series" required></textarea>
 
-        <label for="paperSubmissionInfo">Give paper submission info:</label>
-        <textarea id="paperSubmissionInfo" name="paperSubmissionInfo" rows="3"
-          placeholder="Give paper submission info to editors what type of paper should they upload" required></textarea>
+          <label for="paperSubmissionInfo">Give paper submission info:</label>
+          <textarea id="paperSubmissionInfo" name="paperSubmissionInfo" rows="3"
+            placeholder="Give paper submission info to editors what type of paper should they upload"
+            required></textarea>
 
-        <button id="btn" type="submit">Submit</button>
-        <button type="submit" class="update-btn" style="display: none">Update</button>
-      </form>
+          <button id="btn" type="submit">Submit</button>
+          <button type="submit" class="update-btn" style="display: none">Update</button>
+        </form>
 
-      <div class="added-conferences"></div>
-      <script src="./Frontend/Conference/Conferenes/conferenceAdmin.js"></script>
+        <div class="added-conferences"></div>
+        <script src="./Frontend/Conference/Conferenes/conferenceAdmin.js"></script>
 </body>
 
 </html>

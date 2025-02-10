@@ -320,4 +320,3 @@ exports.deleteAll = async (req, res) => {
     });
   }
 };
-

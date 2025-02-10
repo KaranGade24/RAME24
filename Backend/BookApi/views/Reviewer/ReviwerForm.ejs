@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Review Feedback</title>
+    <link rel="stylesheet" href="/All_CSS_Files/Reviewer/reviewerForm.css">
+</head>
+
+<body>
+    <!-- Placeholder for any message for the reviewer -->
+    <div id="messageForReviewer"></div>
+
+    <!-- Review Form -->
+    <form id="reviewForm">
+        <div id="formInputs">
+            <fieldset>
+                <label for="name">Reviewer Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </fieldset>
+
+            <fieldset>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </fieldset>
+            <fieldset>
+                <label for="paperTitle">Paper Title</label>
+                <input type="text" id="paperTitle" name="paperTitle" placeholder="Title of the paper" required>
+            </fieldset>
+
+            <fieldset>
+                <label for="rating">Rating (1 to 5)</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Select a rating</option>
+                    <option value="1">1 – Poor</option>
+                    <option value="2">2 – Fair</option>
+                    <option value="3">3 – Good</option>
+                    <option value="4">4 – Very Good</option>
+                    <option value="5">5 – Excellent</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="review">Detailed Review Comments</label>
+                <textarea id="review" name="review" rows="6"
+                    placeholder="Enter your comments separated by commas (e.g comment1, comment2, comment3)"
+                    required></textarea>
+            </fieldset>
+            <button type="submit">Submit Review</button>
+        </div>
+    </form>
+
+    <!-- Submitting Message -->
+    <div id="submittingMessage" class="message">
+        <p>Submitting the Review...</p>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="message">
+        <div id="successText"></div>
+        <img src="https://media1.giphy.com/media/LMcUzgsJ7a5xKZq7pI/giphy.gif" alt="Thank You for Your Review">
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="message">
+        <p>Oops! We couldn’t submit your review. Please try again later.</p>
+    </div>
+
+    <script>
+        // Replace with your actual endpoint URL
+        const endpoint = 'https://8080-idx-rame24-1738211022490.cluster-3g4scxt2njdd6uovkqyfcabgo6.cloudworkstations.dev';
+
+        // Get references to DOM elements
+        const reviewForm = document.getElementById('reviewForm');
+        const formInputs = document.getElementById('formInputs');
+        const submittingMessage = document.getElementById('submittingMessage');
+        const successMessage = document.getElementById('successMessage');
+        const successText = document.getElementById('successText');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Handle form submission
+        reviewForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Hide form inputs and any previous error message; show submitting message
+            formInputs.style.display = 'none';
+            errorMessage.style.display = 'none';
+            submittingMessage.style.display = 'block';
+
+            // Gather form data
+            const formData = new FormData(reviewForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            const pathParts = window.location.pathname.split("/"); // Split URL by "/"
+            const paperId = [];
+            paperId.push(pathParts[1]);
+            paperId.push(pathParts[2])
+            paperId.push(pathParts[3]);
+            data.paperId = paperId;
+
+
+            // Send data using Fetch API
+            (async () => {
+                const response = await fetch(`${endpoint}/reviewer`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                if (response.ok) {
+                    const responseData = await response.json();
+                    // Hide submitting message and display success message
+                    submittingMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    // Display server response message if available; otherwise, use a default message
+                    successText.innerHTML = responseData.message || 'Thank you for your review!';
+                } else {
+                    console.error('Error:', error);
+                    // Hide submitting message, show form inputs again and display error message
+                    submittingMessage.style.display = 'none';
+                    formInputs.style.display = 'block';
+                    errorMessage.style.display = 'block';
+                    errorMessage.innerHTML = responseData.message || "Oops! We couldn't submit your review. Please try again later.";
+                }
+            })();
+
+        })
+    </script>
+</body>
+
+</html>

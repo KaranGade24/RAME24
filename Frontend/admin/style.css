@@ -1,0 +1,313 @@
+/* Global Styles */
+body {
+  word-wrap: break-word;
+  word-break: break-all;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9fb;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.8em;
+}
+/* Filter Section */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.filter-bar input,
+.filter-bar select {
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+/* Card Container */
+.card-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px;
+  scroll-behavior: smooth;
+  flex-direction: column;
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  min-width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+.card h3 {
+  margin-top: 0;
+  font-size: 1.4em;
+  color: #333;
+}
+.card p {
+  font-size: 0.9em;
+  color: #555;
+}
+.card .tags {
+  margin: 10px 0;
+}
+.card .tag {
+  display: inline-block;
+  background-color: #e0e0e0;
+  color: #555;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 0.8em;
+}
+.card .status {
+  font-size: 0.9em;
+  margin: 10px 0;
+  font-weight: bold;
+}
+.card .card-actions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.card .card-actions button {
+  padding: 8px 12px;
+  font-size: 0.8em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#onedownloadBtn,
+#downloadBtn {
+  padding: 8px 12px;
+  font-size: 0.8em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: blueviolet;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.card .card-actions button.accept {
+  background-color: #28a745;
+  color: #fff;
+}
+.accept {
+  /* background-color: ; */
+  color: black;
+  border: 2px solid #28a745;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.reject {
+  border: 2px solid red;
+}
+.resolve {
+  border: 2px solid yellow;
+}
+
+.card .card-actions button.reject {
+  background-color: #dc3545;
+  color: #fff;
+}
+.card .card-actions button.resolve {
+  background-color: #ffc107;
+  color: #fff;
+}
+.card .card-actions button#send-status {
+  background-color: #007bff;
+  color: #fff;
+}
+.card .more-details {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.85em;
+  color: #444;
+}
+/* Load More Button */
+.load-more-container {
+  text-align: center;
+  padding: 20px;
+}
+.load-more-container button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #343a40;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background-color: #fff;
+  width: 90%;
+  max-width: 700px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.modal h3 {
+  margin-top: 0;
+}
+.modal .edit-form label {
+  width: 100%;
+  padding: 15px;
+  padding-top: 20px;
+  margin: 5px 0;
+  font-size: 1em;
+  border-radius: 5px;
+}
+.modal .edit-form button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal .review-comments {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.modal .review-comments h4 {
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.modal .review-comments ul {
+  list-style-type: none;
+  padding-left: 0;
+  max-height: 250px;
+  overflow: auto;
+}
+.modal .review-comments li {
+  background-color: #f1f1f1;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 5px;
+}
+.modal .review-comments .reviewer-card {
+  width: 90%;
+  height: fit-content;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 25px;
+}
+/* .model .review-comments .reviewer-info {
+} */
+.modal .review-form input {
+  width: calc(100% - 100px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.modal .review-form button {
+  padding: 8px 15px;
+  margin: 15px;
+  background-color: #17a2b8;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* email body card  */
+.email-body-card {
+  display: none;
+  background: white;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+.send-mail-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.send-mail-btn:hover {
+  background-color: #0056b3;
+}
+#email-card-close-btn {
+  color: white;
+  background-color: rgb(218, 22, 22);
+}
+
+#email-card-close-btn:hover {
+  background-color: red;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    min-width: 90%;
+  }
+  .filter-bar {
+    flex-direction: column;
+    align-items: center;
+  }
+}

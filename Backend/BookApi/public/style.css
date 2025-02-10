@@ -10,6 +10,66 @@ a {
   text-decoration: none;
 }
 
+.login-btn {
+  width: 100%;
+  align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+.login-btn button {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.04rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: blueviolet;
+  color: #fff;
+  transition: background-color 0.3s;
+  margin: 5px;
+}
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+#profile {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+  right: 0;
+  border-radius: 5px;
+}
+
+.dropdown button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}
+
 /* Header Styles */
 .rame-logo-banner {
   background-color: aqua;

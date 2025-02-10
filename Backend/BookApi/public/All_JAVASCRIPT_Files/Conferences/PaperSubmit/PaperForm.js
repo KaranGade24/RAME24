@@ -61,12 +61,16 @@ form.onsubmit = async (e) => {
       throw new Error(`HTTP Error! Status: ${response.status} - ${errorText}`);
     }
 
-    // ✅ Convert response to JSON
+// ✅ Convert response to JSON
     const doc = await response.json();
     // console.log("✅ Server Response:", doc);
-
+// console.log(doc);
     // ✅ Show success message to user
-    alert("Paper submitted successfully!");
+    alert(doc.message);
+    if(doc.redirectUrl){
+      window.location.href=  doc.redirectUrl;
+    }
+    form.reset(); // Reset the form
   } catch (error) {
     // console.error("❌ Error submitting form:", error.message);
     alert("Submission failed! " + error.message);

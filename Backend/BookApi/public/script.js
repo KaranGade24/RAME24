@@ -1,5 +1,7 @@
 const bannerSliderImages = document.querySelector(".banner-slider");
 
+
+
 const imagesUrl = [
   "./images/Rame_books.png",
   "./images/RAME_PUBLISHERS_Banner.png",

@@ -1,0 +1,256 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* Filter Section */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-bar input,
+.filter-bar select {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    flex-direction: column;
+}
+
+/* Card Styles */
+.card {
+    background-color: #fff;
+    min-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: #333;
+}
+
+.card p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.card .tags {
+    margin: 10px 0;
+}
+
+.card .tag {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #555;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+.card .card-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.card .card-actions button {
+    padding: 8px;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card .card-actions button.favorite {
+    background-color: #ffeb3b;
+}
+
+.card .card-actions button.download {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.card .card-actions button.expand {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+button {
+    background-color: #2196f3;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* Expanded Details */
+.card .more-details {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #444;
+}
+
+/* Load More Button */
+.load-more-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.load-more-container button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.modal h3 {
+    margin-top: 0;
+}
+
+.modal .edit-form input,
+.modal .edit-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* pointer-events: none; */
+}
+
+.modal .edit-form button {
+    padding: 8px 15px;
+    background-color: #4caf50;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+.modal .comments {
+    margin-top: 20px;
+}
+
+.modal .comments h4 {
+    margin-bottom: 10px;
+}
+
+.modal .comments ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.modal .comments li {
+    background-color: #f1f1f1;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.modal .comment-form input {
+    width: calc(100% - 100px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal .comment-form button {
+    padding: 8px 15px;
+    margin-left: 5px;
+    background-color: #2196f3;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        min-width: 90%;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+}

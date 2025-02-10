@@ -1,0 +1,74 @@
+/* Basic Styling */
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #fafafa;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: 0;
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+button {
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button[disabled] {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not([disabled]) {
+    background: #357ae8;
+}
+
+.message {
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+/* Hide elements by default */
+#submittingMessage,
+#successMessage,
+#errorMessage {
+    display: none;
+}
+
+/* Success image styling */
+#successMessage img {
+    width: 250px;
+    height: auto;
+    margin-top: 16px;
+}
