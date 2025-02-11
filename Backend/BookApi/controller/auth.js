@@ -159,8 +159,8 @@ exports.authMiddleware = async (req, res, next) => {
 //check login for public files
 
 exports.publicCheckLogin = (req, res, next) => {
-  const token = req?.cookies?.token; // Extract token from cookies
-
+  const token = req?.cookies.token; // Extract token from cookies
+  console.log(token);
   if (!token) {
     console.log("NOT LOGIN");
     return res.send({ isLoggedIn: false, message: "User not logged in" });

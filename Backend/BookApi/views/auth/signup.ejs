@@ -70,7 +70,7 @@
 
 
     <script>
-
+const api=   "https://rame24.onrender.com"
         //sign Method
         document.getElementById("signupForm").addEventListener("submit", async function (event) {
             event.preventDefault(); // Prevent page reload
@@ -98,7 +98,7 @@
 
             // Send data to backend
             try {
-                const response = await fetch("https://8080-idx-rame24-1738211022490.cluster-3g4scxt2njdd6uovkqyfcabgo6.cloudworkstations.dev/signup", {
+                const response = await fetch(`${api}/signup`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ username, email, password })
